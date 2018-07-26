@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.FlowLayout;
 import javax.swing.BoxLayout;
 import java.awt.GridLayout;
+import javax.swing.JScrollPane;
 
 public class StationFrame extends JFrame {
 
@@ -36,20 +37,25 @@ public class StationFrame extends JFrame {
 	public StationFrame() {
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 724, 486);
+		setBounds(100, 100, 888, 596);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		contentPane.setLayout(null);
 		
 		JPanel panelPassengers = new PassengerPanel();
+		panelPassengers.setBounds(10, 11, 428, 336);
 		contentPane.add(panelPassengers);
 		
-		JPanel panelTrains = new JPanel();
-		contentPane.add(panelTrains);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(570, 44, 2, 2);
+		contentPane.add(scrollPane);
 		
-		JPanel panelMisc = new JPanel();
-		contentPane.add(panelMisc);
+//		JPanel panelTrains = new JPanel();
+//		contentPane.add(panelTrains);
+//		
+//		JPanel panelMisc = new JPanel();
+//		contentPane.add(panelMisc);
 	}
 
 }
