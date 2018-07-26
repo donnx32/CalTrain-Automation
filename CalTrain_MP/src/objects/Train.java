@@ -30,6 +30,17 @@ public class Train {
 		this.passengers_droppedOff = new ArrayList<Passenger>();
 	}
 	
+	public Train(int t_number, int num_of_seats) {
+		this.setTrain_number(t_number);
+		this.setTrain_status("STANDBY");
+		this.setTrain_total_seats(num_of_seats);
+		this.setTrain_passengers_in_train(0);
+		this.setTrain_isDoorOpen(false);
+		this.setTrain_isRunning(true);
+		this.passengers_inside = new ArrayList<Passenger>();
+		this.passengers_droppedOff = new ArrayList<Passenger>();
+	}
+	
 	public void addPassenger(Passenger rider) {
 		this.passengers_inside.add(rider);
 	}

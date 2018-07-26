@@ -3,6 +3,8 @@ package gui;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import objects.Station;
+
 import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -20,9 +22,7 @@ public class PassengerPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	public static JPanel[] panels = new JPanel[8];
-	
 	public static JLabel[] labels = new JLabel[8];
-
 	public static GridBagConstraints[] gbcs = new GridBagConstraints[8];
 	
 	public static JLabel wait = new JLabel("Passengers Waiting");
@@ -30,7 +30,7 @@ public class PassengerPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PassengerPanel() {
+	public PassengerPanel(Station[] stations) {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{128, 131, 137, 0};
 		gridBagLayout.rowHeights = new int[]{84, 99, 92, 0};
@@ -109,12 +109,12 @@ public class PassengerPanel extends JPanel {
 //				gbcs[i].gridx = 1;
 //				gbcs[i].gridy = 0;
 //			}
+			panels[i].add(new JLabel("Passengers Waiting"));
 			
 			labels[i].setText(Integer.toString(i));
 			panels[i].add(labels[i]);
 			
-//			panels[i].add(new JLabel("Passengers Waiting"));
-			
+//			panels[i].add(new JLabel("["+(i+10)+"]"));			
 		}
 		
 		for(int i=0;i<panels.length;i++) {

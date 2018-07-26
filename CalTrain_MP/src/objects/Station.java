@@ -41,8 +41,15 @@ public class Station {
 		this.passengers_at_station = new ArrayList<Passenger>();
 	}
 	
-	public void addPassengers() {
-		
+	// adds a passenger into the list of passengers waiting at the train station
+	public void addPassenger(Passenger robot) {
+		passengers_at_station.add(robot);
+	}
+	
+	public void displayPassengers() {
+		for (int i=0;i<passengers_at_station.size();i++) {
+			System.out.println("Pasenger #" +(i+1) +" @" +station_name); 
+		}
 	}
 	
 	///////////setters and getters///////////////////
