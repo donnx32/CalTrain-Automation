@@ -48,7 +48,7 @@ public class Station {
 	
 	public void displayPassengers() {
 		for (int i=0;i<passengers_at_station.size();i++) {
-			System.out.println("Pasenger #" +(i+1) +" @" +station_name); 
+			System.out.println("Robot " +(i+1) +" @" +station_name); 
 		}
 	}
 	

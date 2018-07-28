@@ -109,7 +109,7 @@ public class PassengerPanel extends JPanel {
 //				gbcs[i].gridx = 1;
 //				gbcs[i].gridy = 0;
 //			}
-			panels[i].add(new JLabel("Passengers Waiting"));
+//			panels[i].add(new JLabel("Passengers Waiting"));
 			
 			labels[i].setText(Integer.toString(i));
 			panels[i].add(labels[i]);
