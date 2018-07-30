@@ -1,42 +1,29 @@
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import java.awt.FlowLayout;
-
-import javax.imageio.ImageIO;
-import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
-
-import java.awt.GridLayout;
-import java.awt.Image;
-
-import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.Font;
-import java.awt.Graphics;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 import java.awt.Color;
+import java.awt.EventQueue;
+
 import javax.swing.border.MatteBorder;
 
+import model.Main;
 import objects.Passenger;
 import objects.Station;
 import objects.Train;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -47,14 +34,15 @@ public class StationFrame extends JFrame {
 	/**
 	 * 
 	 */
+	Main caltrainMain;
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textFieldSeatCapacity;
 	
-	private String[] names = {"Alpha", "Bravo", "Charlie", "Delta",
-			"Echo", "Foxtrot", "Golf", "Hotel"};
-	private Train[] trains = new Train[16];
-	private Station[] stations = new Station[8];
+//	private String[] names = {"Alpha", "Bravo", "Charlie", "Delta",
+//			"Echo", "Foxtrot", "Golf", "Hotel"};
+//	private Train[] trains = new Train[16];
+//	private Station[] stations = new Station[8];
 	private int running_trains = 0;
 	private int passengers_added = 0;
 //	private BufferedImage imgStation;
@@ -80,6 +68,7 @@ public class StationFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public StationFrame() {
+		caltrainMain = new Main();
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1350, 550);
@@ -130,8 +119,8 @@ public class StationFrame extends JFrame {
 		lblDestination.setBounds(47, 101, 74, 14);
 		panelInput.add(lblDestination);
 		
-		DefaultComboBoxModel<String> comboModel = new DefaultComboBoxModel<String>(names);
-		DefaultComboBoxModel<String> comboModel2 = new DefaultComboBoxModel<String>(names);
+		DefaultComboBoxModel<String> comboModel = new DefaultComboBoxModel<String>(Main.names);
+		DefaultComboBoxModel<String> comboModel2 = new DefaultComboBoxModel<String>(Main.names);
 		
 		JComboBox<String> cmbSource = new JComboBox<String>(comboModel);
 		cmbSource.setForeground(Color.WHITE);
@@ -178,22 +167,20 @@ public class StationFrame extends JFrame {
 				int num = 0;
 				try {
 				     num = Integer.parseInt(numOfSeats);
+				     if (num <= 0) {
+						JOptionPane.showMessageDialog(null, "Train must have at least 1 seat!", "Error", JOptionPane.ERROR_MESSAGE);
+					} else {
+						// add num to train
+						Main.trains[running_trains] = new Train(running_trains, num);						
+						running_trains++;
+						lblNumTrains.setText(running_trains +" trains of 16");
+						System.out.println("Train Successfully Added!!");
+					}
 				}
 				catch (NumberFormatException e) {
 					JOptionPane.showMessageDialog(null, "Must enter a valid number!", "Error", JOptionPane.ERROR_MESSAGE);
 				     //Not an integer
 				}
-				
-				if (num == 0) {
-					JOptionPane.showMessageDialog(null, "Train must have at least 1 seat!", "Error", JOptionPane.ERROR_MESSAGE);
-				} else {
-					// add num to train
-					trains[running_trains] = new Train(running_trains, num);
-					running_trains++;
-					lblNumTrains.setText(running_trains +" trains of 16");
-					System.out.println("Train Successfully Added!!");
-				}
-				
 				if (running_trains == 16) {
 					btnAddTrain.setVisible(false); // all 16 trains deployed so hide button
 				}
@@ -202,7 +189,7 @@ public class StationFrame extends JFrame {
 		});
 		btnAddTrain.setBounds(32, 444, 143, 23);
 		panelInput.add(btnAddTrain);
-		btnAddTrain.setBackground(UIManager.getColor("Button.background"));
+//		btnAddTrain.setBackground(UIManager.getColor("Button.background"));
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.BLACK);
@@ -218,9 +205,9 @@ public class StationFrame extends JFrame {
 		
 		//////////////////////Not from Windows Builder////////////////////////////////////////
 		// initialize stations
-		for (int i=0; i<stations.length; i++) {
-			stations[i] = new Station(names[i], i);
-		}
+//		for (int i=0; i<stations.length; i++) {
+//			stations[i] = new Station(names[i], i);
+//		}
 		
 //		JPanel panelPassengers = new PassengerPanel(stations);
 //		panelPassengers.setBounds(9, 11, 396, 275);
@@ -232,13 +219,15 @@ public class StationFrame extends JFrame {
 				int indexSourceStation = cmbSource.getSelectedIndex();
 				int indexDestination = cmbDestination.getSelectedIndex();
 				
-				System.out.println(indexDestination);
+				System.out.println("Added passenger from: " +indexSourceStation 
+							+" to: " +indexDestination);
 				
-				for (int i=0; i<stations.length;i++) {
+				for (int i=0; i<Main.stations.length;i++) {
 					if (indexSourceStation == i) {
-						Passenger robot = new Passenger(stations[i], indexDestination);
+						Passenger robot = new Passenger(Main.stations[i], indexDestination);
 						// adds robot in the Source Station's waiting list
-						stations[i].addPassenger(robot);
+						System.out.println("station: " +Main.stations[i].getStation_name());
+						Main.stations[i].addPassenger(robot);
 						passengerList.add(robot); // not sure
 						break;
 					}
@@ -254,8 +243,8 @@ public class StationFrame extends JFrame {
 		panelInput.add(btnTest);
 		btnTest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				for (int i=0; i<stations.length;i++) {
-					stations[i].displayPassengers();
+				for (int i=0; i<Main.stations.length;i++) {
+					Main.stations[i].displayPassengers();
 					System.out.println();
 				}
 			}
