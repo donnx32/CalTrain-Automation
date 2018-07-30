@@ -27,6 +27,7 @@ public class StationPanel extends JPanel implements MouseListener{
 	private static final int TIMER_DELAY = 30;
 	private int trainX = 80;
 	private int trainY = 100;
+	BufferedImage buffImg;
 	Image imgStation, imgTrain;
 	
 	/**
@@ -42,50 +43,53 @@ public class StationPanel extends JPanel implements MouseListener{
 //		      }
 //		    });
 //		    timer.start();
+//		buffImg = new BufferedImage(640, 480, BufferedImage.OPAQUE);
+//		try {
+//			imgStation = ImageIO.read(new File("src/res/station.png"));
+//			imgTrain = ImageIO.read(new File("src/res/train-cartoon.png"));
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//		animate();
 	}
 	
 	public void animate() {
-        Graphics g = imgStation.getGraphics();
-        for (int i = 0, j = 20; i < 640; i += 5, j += 7) {
-            g.setColor(Color.white);
-            g.fillRect(0, 0, 640, 480);
-            g.setColor(Color.red);
-            g.fillOval(i, j, 20, 20);
-//        while (true) {
-        	
+        Graphics g = buffImg.getGraphics();
+//        for (int i = 0, j = 20; i < 640; i += 5, j += 7) {
+//            g.setColor(Color.white);
+//            g.fillRect(0, 0, 640, 480);
+//            g.setColor(Color.red);
+//            g.fillOval(i, j, 20, 20);
+		
+        while (trainX<=4000) {
+        	g.drawImage(imgTrain, trainX, 110, this);
         
-        	trainX++;
-            this.repaint();
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException ex) {
-//                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-            }
+//        	trainX++;
+//            this.repaint();
+//            try {
+//                Thread.sleep(200);
+//            } catch (InterruptedException ex) {
+////                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+//            }
         }
     }
 
 	public void paint(Graphics g) {
-//	      Image img = createImageWithText();
-//	      Image imgStation, imgTrain;
-		try {
-			imgStation = ImageIO.read(new File("src/res/station.png"));
-			g.drawImage(imgStation, 100, 20, this);
-			g.drawImage(imgStation, 330, 20, this);
-			g.drawImage(imgStation, 560, 20, this);
-			
-			g.drawImage(imgStation, 100, 180, this);
-			g.drawImage(imgStation, 560, 180, this);
-			
-			g.drawImage(imgStation, 100, 370, this);
-			g.drawImage(imgStation, 330, 370, this);
-			g.drawImage(imgStation, 560, 370, this);
-			
-			imgTrain = ImageIO.read(new File("src/res/train-cartoon.png"));
-			g.drawImage(imgTrain, trainX, 110, this);
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		imgStation = ImageIO.read(new File("src/res/station.png"));
+//		g.drawImage(buffImg, 0, 0, this);
+//		g.drawImage(imgStation, 100, 20, this);
+//		g.drawImage(imgStation, 330, 20, this);
+//		g.drawImage(imgStation, 560, 20, this);
+//		
+//		g.drawImage(imgStation, 100, 180, this);
+//		g.drawImage(imgStation, 560, 180, this);
+//		
+//		g.drawImage(imgStation, 100, 370, this);
+//		g.drawImage(imgStation, 330, 370, this);
+//		g.drawImage(imgStation, 560, 370, this);
+//
+//		imgTrain = ImageIO.read(new File("src/res/train-cartoon.png"));
+//		g.drawImage(imgTrain, trainX, 110, this);
 	      
 	   }
 

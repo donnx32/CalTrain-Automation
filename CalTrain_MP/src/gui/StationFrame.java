@@ -40,6 +40,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.UIManager;
 
 public class StationFrame extends JFrame {
 
@@ -81,17 +82,17 @@ public class StationFrame extends JFrame {
 	public StationFrame() {
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1241, 587);
+		setBounds(100, 100, 1350, 550);
 		contentPane = new JPanel();
-		contentPane.setBackground(Color.CYAN);
+		contentPane.setBackground(Color.BLACK);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		ArrayList<Passenger> passengerList = new ArrayList<Passenger>();
 		
-		JPanel panelStation = new StationPanel();
-		panelStation.setBounds(415, 11, 800, 526);
+		JPanel panelStation = new ThreadPanel();
+		panelStation.setBounds(215, 10, 1110, 490);
 		contentPane.add(panelStation);
 		panelStation.addMouseListener(new MouseAdapter() {
 			@Override
@@ -101,63 +102,72 @@ public class StationFrame extends JFrame {
 		});
 		
 		JPanel panelInput = new JPanel();
+		panelInput.setBackground(Color.WHITE);
 		panelInput.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.DARK_GRAY, null, null, null));
-		panelInput.setBounds(10, 296, 381, 241);
+		panelInput.setBounds(5, 10, 200, 490);
 		contentPane.add(panelInput);
 		panelInput.setLayout(null);
 		
 		JLabel lblPassenger = new JLabel("Passenger");
-		lblPassenger.setFont(new Font("Segoe UI", Font.BOLD, 15));
+		lblPassenger.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		lblPassenger.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPassenger.setBounds(49, 11, 83, 23);
+		lblPassenger.setBounds(57, 11, 83, 23);
 		panelInput.add(lblPassenger);
 		
 		JLabel lblTrain = new JLabel("Train");
-		lblTrain.setFont(new Font("Segoe UI", Font.BOLD, 15));
+		lblTrain.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		lblTrain.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTrain.setBounds(249, 11, 74, 23);
+		lblTrain.setBounds(66, 260, 74, 23);
 		panelInput.add(lblTrain);
 		
 		JLabel lblSource = new JLabel("Source:");
 		lblSource.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblSource.setBounds(36, 72, 46, 14);
+		lblSource.setBounds(47, 45, 46, 14);
 		panelInput.add(lblSource);
 		
 		JLabel lblDestination = new JLabel("Destination:");
 		lblDestination.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblDestination.setBounds(36, 128, 74, 14);
+		lblDestination.setBounds(47, 101, 74, 14);
 		panelInput.add(lblDestination);
 		
 		DefaultComboBoxModel<String> comboModel = new DefaultComboBoxModel<String>(names);
 		DefaultComboBoxModel<String> comboModel2 = new DefaultComboBoxModel<String>(names);
 		
 		JComboBox<String> cmbSource = new JComboBox<String>(comboModel);
-		cmbSource.setBounds(36, 97, 107, 20);
+		cmbSource.setForeground(Color.WHITE);
+		cmbSource.setBackground(Color.BLACK);
+		cmbSource.setBounds(47, 70, 107, 20);
 		panelInput.add(cmbSource);
 		
 		JComboBox<String> cmbDestination = new JComboBox<String>(comboModel2);
-		cmbDestination.setBounds(36, 151, 107, 20);
+		cmbDestination.setForeground(Color.WHITE);
+		cmbDestination.setBackground(Color.BLACK);
+		cmbDestination.setBounds(47, 124, 107, 20);
 		panelInput.add(cmbDestination);
 		
 		textFieldSeatCapacity = new JTextField();
-		textFieldSeatCapacity.setBounds(294, 151, 57, 20);
+		textFieldSeatCapacity.setBackground(Color.WHITE);
+		textFieldSeatCapacity.setForeground(Color.BLACK);
+		textFieldSeatCapacity.setBounds(118, 400, 57, 20);
 		panelInput.add(textFieldSeatCapacity);
 		textFieldSeatCapacity.setColumns(10);
 		
 		JLabel lblTrainCapacity = new JLabel("Seat Capacity:");
+		lblTrainCapacity.setForeground(Color.WHITE);
 		lblTrainCapacity.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblTrainCapacity.setBounds(209, 153, 86, 14);
+		lblTrainCapacity.setBounds(33, 402, 86, 14);
 		panelInput.add(lblTrainCapacity);
 		
 		JLabel lblRunningTrains = new JLabel("Number of Running Trains:");
-		lblRunningTrains.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblRunningTrains.setBounds(209, 45, 149, 23);
+		lblRunningTrains.setFont(new Font("Serif", Font.PLAIN, 14));
+		lblRunningTrains.setBounds(20, 288, 160, 23);
 		panelInput.add(lblRunningTrains);
 		
 		JLabel lblNumTrains = new JLabel("0 trains of 16");
+		lblNumTrains.setFont(new Font("Serif", Font.BOLD, 16));
 		lblNumTrains.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNumTrains.setForeground(Color.BLUE);
-		lblNumTrains.setBounds(236, 73, 99, 14);
+		lblNumTrains.setBounds(53, 320, 99, 14);
 		panelInput.add(lblNumTrains);
 
 		JButton btnAddTrain = new JButton("Add New Train");
@@ -190,15 +200,18 @@ public class StationFrame extends JFrame {
 				
 			}
 		});
-		btnAddTrain.setBounds(208, 195, 143, 23);
+		btnAddTrain.setBounds(32, 444, 143, 23);
 		panelInput.add(btnAddTrain);
+		btnAddTrain.setBackground(UIManager.getColor("Button.background"));
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(186, 105, 185, 125);
+		panel.setBackground(Color.BLACK);
+		panel.setBounds(10, 354, 185, 125);
 		panelInput.add(panel);
 		panel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		
 		JLabel lblDeployTrains = new JLabel("Deploy Additional Trains");
+		lblDeployTrains.setForeground(Color.WHITE);
 		lblDeployTrains.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDeployTrains.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		panel.add(lblDeployTrains);
@@ -209,9 +222,9 @@ public class StationFrame extends JFrame {
 			stations[i] = new Station(names[i], i);
 		}
 		
-		JPanel panelPassengers = new PassengerPanel(stations);
-		panelPassengers.setBounds(9, 11, 396, 275);
-		contentPane.add(panelPassengers);
+//		JPanel panelPassengers = new PassengerPanel(stations);
+//		panelPassengers.setBounds(9, 11, 396, 275);
+//		contentPane.add(panelPassengers);
 		
 		JButton btnAddPassengers = new JButton("Add New Passenger");
 		btnAddPassengers.addActionListener(new ActionListener() {
@@ -233,11 +246,11 @@ public class StationFrame extends JFrame {
 				passengers_added++;
 			}
 		});
-		btnAddPassengers.setBounds(24, 195, 139, 23);
+		btnAddPassengers.setBounds(35, 168, 139, 23);
 		panelInput.add(btnAddPassengers);
 		
-		JButton btnTest = new JButton("test");
-		btnTest.setBounds(43, 38, 89, 23);
+		JButton btnTest = new JButton("displayPassengers");
+		btnTest.setBounds(35, 213, 134, 23);
 		panelInput.add(btnTest);
 		btnTest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -248,7 +261,7 @@ public class StationFrame extends JFrame {
 			}
 		});
 		
-
+//		UIManager.setLookAndFeel(metal);
 	}
 
 }
