@@ -3,13 +3,13 @@ package objects;
 public class Passenger {
 		
 //	private String passenger_name;
-	private String passenger_status;  // WAITING, RIDING
-	private int destination_number;
+	private String passengerStatus;  // WAITING, RIDING
+	private int departureStation;
 	private Station passenger_station;
 	
 	public Passenger(Station station, int station_number) {
-		this.setPassenger_status("WAITING");
-		this.setDestination_number(station_number);
+		this.setpassengerStatus("WAITING");
+		this.setdepartureStation(station_number);
 		this.setPassenger_station(station);
 	}
 
@@ -20,31 +20,31 @@ public class Passenger {
 	
 	//////////////////getters and setters////////////////////
 	/**
-	 * @return the passenger_status
+	 * @return the passengerStatus
 	 */
-	public String getPassenger_status() {
-		return passenger_status;
+	public String getpassengerStatus() {
+		return passengerStatus;
 	}
 
 	/**
-	 * @param passenger_status the passenger_status to set
+	 * @param passengerStatus the passengerStatus to set
 	 */
-	public void setPassenger_status(String passenger_status) {
-		this.passenger_status = passenger_status;
+	public void setpassengerStatus(String passengerStatus) {
+		this.passengerStatus = passengerStatus;
 	}
 
 	/**
-	 * @return the destination_number
+	 * @return the departureStation
 	 */
-	public int getDestination_number() {
-		return destination_number;
+	public int getdepartureStation() {
+		return departureStation;
 	}
 
 	/**
-	 * @param destination_number the destination_number to set
+	 * @param departureStation the departureStation to set
 	 */
-	public void setDestination_number(int destination_number) {
-		this.destination_number = destination_number;
+	public void setdepartureStation(int departureStation) {
+		this.departureStation = departureStation;
 	}
 
 	/**

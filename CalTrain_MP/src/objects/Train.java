@@ -1,124 +1,106 @@
 package objects;
 
 import java.util.ArrayList;
-import java.util.concurrent.Semaphore;
 
-public class Train {
-	
-	private int train_number;
-	private String train_name; 
-	private String train_status;  		//STANDBY, MOVING, LOADING
-	private int train_total_seats;
-	private int train_passengers_in_train;
-	private boolean train_isDoorOpen;
-	private boolean train_isRunning;
-	private ArrayList<Passenger> passengers_inside;
-	private ArrayList<Passenger> passengers_droppedOff;
-	private int train_station_number;
+public class Train implements Runnable {
+	private static int latestnumber = 0;
+	private int number;
+	private String status; // STANDBY, MOVING, LOADING
+	private int capacity;
+	private boolean isDoorOpen;
+	private boolean isRunning;
+	private ArrayList<Passenger> passengerList;
+	private Station[] stations;
+	// private int currStation;
 	// Semaphores, locks, etc.
-	private Semaphore available_seats;
-	
-	public Train(String name, int t_number, int num_of_seats) {
-		this.setTrain_number(t_number);
-		this.setTrain_name(name);
-		this.setTrain_status("STANDBY");
-		this.setTrain_total_seats(num_of_seats);
-		this.setTrain_passengers_in_train(0);
-		this.setTrain_isDoorOpen(false);
-		this.setTrain_isRunning(true);
-		this.passengers_inside = new ArrayList<Passenger>();
-		this.passengers_droppedOff = new ArrayList<Passenger>();
-	}
-	
-	public Train(int t_number, int num_of_seats) {
-		this.setTrain_number(t_number);
-		this.setTrain_status("STANDBY");
-		this.setTrain_total_seats(num_of_seats);
-		this.setTrain_passengers_in_train(0);
-		this.setTrain_isDoorOpen(false);
-		this.setTrain_isRunning(true);
-		this.passengers_inside = new ArrayList<Passenger>();
-		this.passengers_droppedOff = new ArrayList<Passenger>();
-	}
-	
-	public void addPassenger(Passenger rider) {
-		this.passengers_inside.add(rider);
+	// private Semaphore available_seats;
+
+	public Train(int num_of_seats, Station[] stations) {
+		latestnumber++;
+		this.stations = stations;
+		this.setnumber(latestnumber);
+		this.setstatus("STANDBY");
+		this.setcapacity(num_of_seats);
+		this.setisDoorOpen(false);
+		this.setisRunning(true);
+		this.passengerList = new ArrayList<Passenger>();
 	}
 
-	public void removePassenger() {
-		passengers_droppedOff.clear();
-		for (Passenger p: passengers_inside) {
-//			if (p.get)
-			//TODO
+	public Train(int t_number, int num_of_seats) {
+		this.setnumber(t_number);
+		this.setstatus("STANDBY");
+		this.setcapacity(num_of_seats);
+		this.setisDoorOpen(false);
+		this.setisRunning(true);
+		this.passengerList = new ArrayList<Passenger>();
+	}
+
+	@Override
+	public void run() {
+		try {
+			System.out.printf("Train deployed {number: %d, status: %s, capacity: %d seats}\n", number, status,
+					capacity);
+
+			for (Station s : stations) {
+				System.out.println("Train #" + this.number + " is approaching " + s.getname() + " station");
+				Thread.sleep(1750);
+				System.out.println("Train #" + this.number + " is leaving " + s.getname() + " station");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
-	
-	/////////////////getters and setters////////////////////
-	public int getTrain_number() {
-		return train_number;
+
+	public void addPassenger(Passenger rider) {
+		this.passengerList.add(rider);
 	}
 
-	public void setTrain_number(int train_number) {
-		this.train_number = train_number;
+	///////////////// getters and setters////////////////////
+	public int getnumber() {
+		return number;
 	}
 
-	public String getTrain_name() {
-		return train_name;
+	public void setnumber(int number) {
+		this.number = number;
 	}
 
-	public void setTrain_name(String train_name) {
-		this.train_name = train_name;
+	public String getstatus() {
+		return status;
 	}
 
-	public String getTrain_status() {
-		return train_status;
+	public void setstatus(String status) {
+		this.status = status;
 	}
 
-	public void setTrain_status(String train_status) {
-		this.train_status = train_status;
+	public int getcapacity() {
+		return capacity;
 	}
 
-	public int getTrain_total_seats() {
-		return train_total_seats;
+	public void setcapacity(int capacity) {
+		this.capacity = capacity;
 	}
 
-	public void setTrain_total_seats(int train_total_seats) {
-		this.train_total_seats = train_total_seats;
+	public boolean isisDoorOpen() {
+		return isDoorOpen;
 	}
 
-	public int getTrain_passengers_in_train() {
-		return train_passengers_in_train;
+	public void setisDoorOpen(boolean isDoorOpen) {
+		this.isDoorOpen = isDoorOpen;
 	}
 
-	public void setTrain_passengers_in_train(int train_passengers_in_train) {
-		this.train_passengers_in_train = train_passengers_in_train;
+	public boolean isisRunning() {
+		return isRunning;
 	}
 
-	public boolean isTrain_isDoorOpen() {
-		return train_isDoorOpen;
+	public void setisRunning(boolean isRunning) {
+		this.isRunning = isRunning;
 	}
 
-	public void setTrain_isDoorOpen(boolean train_isDoorOpen) {
-		this.train_isDoorOpen = train_isDoorOpen;
+	public int getcurrStation() {
+		return currStation;
 	}
 
-	public boolean isTrain_isRunning() {
-		return train_isRunning;
+	public void setcurrStation(int currStation) {
+		this.currStation = currStation;
 	}
-
-	public void setTrain_isRunning(boolean train_isRunning) {
-		this.train_isRunning = train_isRunning;
-	}
-
-	public int getTrain_station_number() {
-		return train_station_number;
-	}
-
-	public void setTrain_station_number(int train_station_number) {
-		this.train_station_number = train_station_number;
-	}
-	
-	
-	
-	
 }
