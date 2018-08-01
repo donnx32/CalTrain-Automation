@@ -96,11 +96,11 @@ public class Train implements Runnable {
 		this.isRunning = isRunning;
 	}
 
-	public int getcurrStation() {
-		return currStation;
-	}
-
-	public void setcurrStation(int currStation) {
-		this.currStation = currStation;
-	}
+//	public int getcurrStation() {
+//		return currStation;
+//	}
+//
+//	public void setcurrStation(int currStation) {
+//		this.currStation = currStation;
+//	}
 }

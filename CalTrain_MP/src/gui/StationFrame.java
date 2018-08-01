@@ -73,7 +73,7 @@ public class StationFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1350, 550);
 		contentPane = new JPanel();
-		contentPane.setBackground(Color.BLACK);
+//		contentPane.setBackground(Color.BLACK);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -91,7 +91,7 @@ public class StationFrame extends JFrame {
 		});
 		
 		JPanel panelInput = new JPanel();
-		panelInput.setBackground(Color.WHITE);
+//		panelInput.setBackground(Color.LIGHT_GRAY);
 		panelInput.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.DARK_GRAY, null, null, null));
 		panelInput.setBounds(5, 10, 200, 490);
 		contentPane.add(panelInput);
@@ -123,14 +123,10 @@ public class StationFrame extends JFrame {
 		DefaultComboBoxModel<String> comboModel2 = new DefaultComboBoxModel<String>(Main.names);
 		
 		JComboBox<String> cmbSource = new JComboBox<String>(comboModel);
-		cmbSource.setForeground(Color.WHITE);
-		cmbSource.setBackground(Color.BLACK);
 		cmbSource.setBounds(47, 70, 107, 20);
 		panelInput.add(cmbSource);
 		
 		JComboBox<String> cmbDestination = new JComboBox<String>(comboModel2);
-		cmbDestination.setForeground(Color.WHITE);
-		cmbDestination.setBackground(Color.BLACK);
 		cmbDestination.setBounds(47, 124, 107, 20);
 		panelInput.add(cmbDestination);
 		
@@ -142,7 +138,7 @@ public class StationFrame extends JFrame {
 		textFieldSeatCapacity.setColumns(10);
 		
 		JLabel lblTrainCapacity = new JLabel("Seat Capacity:");
-		lblTrainCapacity.setForeground(Color.WHITE);
+		lblTrainCapacity.setForeground(UIManager.getColor("Label.foreground"));
 		lblTrainCapacity.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblTrainCapacity.setBounds(33, 402, 86, 14);
 		panelInput.add(lblTrainCapacity);
@@ -192,13 +188,12 @@ public class StationFrame extends JFrame {
 //		btnAddTrain.setBackground(UIManager.getColor("Button.background"));
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(Color.BLACK);
 		panel.setBounds(10, 354, 185, 125);
 		panelInput.add(panel);
 		panel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		
 		JLabel lblDeployTrains = new JLabel("Deploy Additional Trains");
-		lblDeployTrains.setForeground(Color.WHITE);
+		lblDeployTrains.setForeground(UIManager.getColor("Label.foreground"));
 		lblDeployTrains.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDeployTrains.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		panel.add(lblDeployTrains);
@@ -226,7 +221,7 @@ public class StationFrame extends JFrame {
 					if (indexSourceStation == i) {
 						Passenger robot = new Passenger(Main.stations[i], indexDestination);
 						// adds robot in the Source Station's waiting list
-						System.out.println("station: " +Main.stations[i].getStation_name());
+//						System.out.println("station: " +Main.stations[i].getStation_name());
 						Main.stations[i].addPassenger(robot);
 						passengerList.add(robot); // not sure
 						break;

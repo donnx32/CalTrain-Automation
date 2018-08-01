@@ -1,4 +1,6 @@
-package gui;
+package client;
+
+import gui.SelectFrame;
 
 public class Driver {
 	

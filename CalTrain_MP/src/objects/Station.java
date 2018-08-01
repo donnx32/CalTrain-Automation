@@ -27,8 +27,8 @@ public class Station {
 	public void station_init(String name, int number) {
 		this.name = name;
 		this.number = number; // will this be used??
-		this.setStation_state("WAITING");
-		this.setStation_passenger_waiting(0);
+//		this.setStation_state("WAITING");
+//		this.setStation_passenger_waiting(0);
 		this.currentTrain = null;
 		this.passengerList = new ArrayList<Passenger>();
 	}
