@@ -10,7 +10,7 @@ public class Station {
 	private int number;
 	private String name;
 	private Train currentTrain;
-	private ArrayList<Passenger> passengerList;
+	private ArrayList<Robot> robotList;
 
 	// The FUN objects
 	private Lock station_lock;
@@ -28,18 +28,18 @@ public class Station {
 		this.name = name;
 		this.number = number; // will this be used??
 //		this.setStation_state("WAITING");
-//		this.setStation_passenger_waiting(0);
+//		this.setStation_robot_waiting(0);
 		this.currentTrain = null;
-		this.passengerList = new ArrayList<Passenger>();
+		this.robotList = new ArrayList<Robot>();
 	}
 
-	// adds a passenger into the list of passengers waiting at the train station
-	public void addPassenger(Passenger robot) {
-		passengerList.add(robot);
+	// adds a robot into the list of robots waiting at the train station
+	public void addrobot(Robot robot) {
+		robotList.add(robot);
 	}
 
-	public void displayPassengers() {
-		for (int i = 0; i < passengerList.size(); i++) {
+	public void displayrobots() {
+		for (int i = 0; i < robotList.size(); i++) {
 			System.out.println("Robot " + (i + 1) + " @" + name);
 		}
 	}

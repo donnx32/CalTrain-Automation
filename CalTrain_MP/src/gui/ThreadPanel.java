@@ -1,9 +1,6 @@
 package gui;
 
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,11 +9,11 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import model.Main;
+
 
 public class ThreadPanel extends JPanel {
 
@@ -38,7 +35,7 @@ public class ThreadPanel extends JPanel {
     					hotel;
     private int xPos = 0;
     private int yPos = 135; // train starts at the top stations
-    private int direction = 1;
+    private double direction = 0.1;
 
     public ThreadPanel() {
         try {
@@ -67,11 +64,11 @@ public class ThreadPanel extends JPanel {
                     if (xPos + trainImage.getWidth() > getWidth() && yPos == 135) {
                     	xPos = 0;
                     	yPos = 385;
-                    	direction *= 1;
+                    	direction *= 0.1;
                     } else if (xPos + trainImage.getWidth() > getWidth() && yPos == 385) {
                     	xPos = 0;
                     	yPos = 135;
-                    	direction *= 1;
+                    	direction *= 0.1;
                     }
                     repaint();
                 }

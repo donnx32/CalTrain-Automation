@@ -2,7 +2,7 @@ package model;
 
 import java.util.concurrent.Semaphore;
 
-import objects.Passenger;
+import objects.Robot;
 import objects.Station;
 import objects.Train;
 
@@ -25,9 +25,7 @@ public class Main {
 		}
 	}
 	
-	public void addStationPassengers(int source, Passenger robot) {
-		stations[source].addPassenger(robot);
+	public void addStationPassengers(int source, Robot robot) {
+		stations[source].addrobot(robot);
 	}
-	
-	
 }

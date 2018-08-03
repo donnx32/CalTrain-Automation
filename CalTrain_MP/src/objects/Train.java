@@ -9,7 +9,7 @@ public class Train implements Runnable {
 	private int capacity;
 	private boolean isDoorOpen;
 	private boolean isRunning;
-	private ArrayList<Passenger> passengerList;
+	private ArrayList<Robot> robotList;
 	private Station[] stations;
 	// private int currStation;
 	// Semaphores, locks, etc.
@@ -23,7 +23,7 @@ public class Train implements Runnable {
 		this.setcapacity(num_of_seats);
 		this.setisDoorOpen(false);
 		this.setisRunning(true);
-		this.passengerList = new ArrayList<Passenger>();
+		this.robotList = new ArrayList<Robot>();
 	}
 
 	public Train(int t_number, int num_of_seats) {
@@ -32,7 +32,7 @@ public class Train implements Runnable {
 		this.setcapacity(num_of_seats);
 		this.setisDoorOpen(false);
 		this.setisRunning(true);
-		this.passengerList = new ArrayList<Passenger>();
+		this.robotList = new ArrayList<Robot>();
 	}
 
 	@Override
@@ -51,8 +51,8 @@ public class Train implements Runnable {
 		}
 	}
 
-	public void addPassenger(Passenger rider) {
-		this.passengerList.add(rider);
+	public void addrobot(Robot rider) {
+		this.robotList.add(rider);
 	}
 
 	///////////////// getters and setters////////////////////

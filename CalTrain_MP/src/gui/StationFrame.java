@@ -18,7 +18,7 @@ import java.awt.EventQueue;
 import javax.swing.border.MatteBorder;
 
 import model.Main;
-import objects.Passenger;
+import objects.Robot;
 import objects.Station;
 import objects.Train;
 
@@ -78,7 +78,7 @@ public class StationFrame extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		ArrayList<Passenger> passengerList = new ArrayList<Passenger>();
+		ArrayList<Robot> passengerList = new ArrayList<Robot>();
 		
 		JPanel panelStation = new ThreadPanel();
 		panelStation.setBounds(215, 10, 1110, 490);
@@ -219,10 +219,10 @@ public class StationFrame extends JFrame {
 				
 				for (int i=0; i<Main.stations.length;i++) {
 					if (indexSourceStation == i) {
-						Passenger robot = new Passenger(Main.stations[i], indexDestination);
+						Robot robot = new Robot(Main.stations[i], indexDestination);
 						// adds robot in the Source Station's waiting list
 //						System.out.println("station: " +Main.stations[i].getStation_name());
-						Main.stations[i].addPassenger(robot);
+						Main.stations[i].addrobot(robot);
 						passengerList.add(robot); // not sure
 						break;
 					}
@@ -239,7 +239,7 @@ public class StationFrame extends JFrame {
 		btnTest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				for (int i=0; i<Main.stations.length;i++) {
-					Main.stations[i].displayPassengers();
+					Main.stations[i].displayrobots();
 					System.out.println();
 				}
 			}
