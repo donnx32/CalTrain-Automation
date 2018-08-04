@@ -2,10 +2,13 @@ package objects;
 
 import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Station {
 	private ArrayList<Robot> robotList;
 	private Semaphore semStation;
+	private Lock stationLock;
 	private Train currentTrain;
 	private String name;
 	private int number;
@@ -15,6 +18,7 @@ public class Station {
 		this.number = num;
 		this.currentTrain = null;
 		this.robotList = new ArrayList<Robot>();
+		this.stationLock = new ReentrantLock();
 		this.semStation = new Semaphore(1, true);
 	}
 
@@ -79,5 +83,13 @@ public class Station {
 
 	public void setRobotList(ArrayList<Robot> robotList) {
 		this.robotList = robotList;
+	}
+
+	public Lock getStationLock() {
+		return stationLock;
+	}
+
+	public void setStationLock(Lock stationLock) {
+		this.stationLock = stationLock;
 	}
 }

@@ -26,14 +26,19 @@ public class Train implements Runnable {
 		System.out.printf("Train #%d {capacity : %d/%d} deployed\n", number, capacity, this.robotList.size());
 
 		try {
-			// This train object will just simply traverse all 8 stations endlessly until program is terminated.
+			// This train object will just simply traverse all 8 stations endlessly until
+			// program is terminated.
 			while (true) {
 				for (Station s : CalTrainII.stationList) {
 					Thread.sleep(7200); // Moving to the next station.
 
 					displayStatus(s, "approaching");
-					
-					s.getsemStation().acquire();	// Gets the permit to use the station, so that no other train can enter.
+
+					if (CalTrainII.mode.equalsIgnoreCase("locks"))
+						s.getStationLock().lock();
+					else
+						s.getsemStation().acquire(); // Gets the permit to use the station, so that no other train can
+														// enter.
 
 					synchronized (this) {
 						s.setcurrentTrain(this);
@@ -49,7 +54,11 @@ public class Train implements Runnable {
 						s.setcurrentTrain(null);
 					}
 
-					s.getsemStation().release();	// Releases the permit of the station, so that a new train can use the station.
+					if (CalTrainII.mode.equalsIgnoreCase("locks"))
+						s.getsemStation().release(); // Releases the permit of the station, so that a new train can use
+														// the station.
+					else
+						s.getStationLock().unlock();
 
 					displayStatus(s, "leaving");
 

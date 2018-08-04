@@ -13,6 +13,7 @@ public class CalTrainII {
 	private ArrayList<Thread> robotThreads;
 	private ArrayList<Train> trainList;
 	private ArrayList<Robot> robotList;
+	public static String mode; // "semaphores" || "locks" ?
 
 	public CalTrainII() {
 		robotThreads = new ArrayList<Thread>();
@@ -20,6 +21,19 @@ public class CalTrainII {
 		stationList = new ArrayList<Station>();
 		trainThreads = new ArrayList<Thread>();
 		trainList = new ArrayList<Train>();
+
+		for (int i = 0; i < stationNames.length; i++) {
+			stationList.add(new Station(stationNames[i], i));
+		}
+	}
+	
+	public CalTrainII(String m) {
+		robotThreads = new ArrayList<Thread>();
+		robotList = new ArrayList<Robot>();
+		stationList = new ArrayList<Station>();
+		trainThreads = new ArrayList<Thread>();
+		trainList = new ArrayList<Train>();
+		mode = m;
 
 		for (int i = 0; i < stationNames.length; i++) {
 			stationList.add(new Station(stationNames[i], i));

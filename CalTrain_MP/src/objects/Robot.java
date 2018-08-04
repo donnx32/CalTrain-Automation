@@ -16,12 +16,13 @@ public class Robot implements Runnable {
 		this.start = start;
 		this.dest = dest;
 		isOnBoard = false;
-		myTrain =  null;
+		myTrain = null;
 	}
 
 	@Override
 	public void run() {
-		/*
+		
+		/**
 		 * This will execute a typical passenger life span.
 		 * 
 		 * [1] Adds itself to the passenger list of the station
@@ -138,7 +139,7 @@ public class Robot implements Runnable {
 	public void setOnBoard(boolean isOnBoard) {
 		this.isOnBoard = isOnBoard;
 	}
-	
+
 	public Train getMyTrain() {
 		return myTrain;
 	}
