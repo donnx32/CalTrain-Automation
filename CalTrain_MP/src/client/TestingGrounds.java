@@ -1,23 +1,30 @@
 package client;
 
 import model.CalTrainII;
-import model.RobotManager;
 
 public class TestingGrounds {
 
 	public static void main(String[] args) throws InterruptedException {
 
-		CalTrainII rm = new CalTrainII();
-		RobotManager R = new RobotManager();
+		CalTrainII C = new CalTrainII();
 		
-		rm.addTrain(2);
-		rm.runLatestTrain();
+		C.spawnRobot(1, 5);
+		C.spawnRobot(1, 5);
+		C.spawnRobot(1, 5);
+		C.spawnRobot(2, 4);
+		C.spawnRobot(2, 6);
+		C.spawnRobot(2, 5);
+		C.spawnRobot(2, 7);
+		C.spawnRobot(3, 4);
+		C.spawnRobot(2, 5);
 		
-		R.spawnRobot(2, 3);
-		R.spawnRobot(2, 4);
-		R.spawnRobot(2, 5);
+		Thread.sleep(1000);
 		
-		rm.addTrain(2);
-		rm.runLatestTrain();
+		C.deployTrain(6);
+		
+		Thread.sleep(5000);
+		
+		C.deployTrain(6);
+
 	}
 }

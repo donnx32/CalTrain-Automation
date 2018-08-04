@@ -23,41 +23,47 @@ public class Train implements Runnable {
 
 	@Override
 	public void run() {
-		System.out.printf("Train #%d {capacity : %d/%d} deployed\n", number, this.robotList.size(), capacity);
+		System.out.printf("Train #%d {capacity : %d/%d} deployed\n", number, capacity, this.robotList.size());
 
 		try {
+			// This train object will just simply traverse all 8 stations endlessly until program is terminated.
 			while (true) {
 				for (Station s : CalTrainII.stationList) {
-					Thread.sleep(4200); // Moving to the next station.
+					Thread.sleep(7200); // Moving to the next station.
 
-					System.out.printf("Train #%d {capacity : %d/%d} is approaching station %d\n", number,
-							this.robotList.size(), capacity, s.getNumber() + 1);
-					s.getsemStation().acquire();
+					displayStatus(s, "approaching");
+					
+					s.getsemStation().acquire();	// Gets the permit to use the station, so that no other train can enter.
 
 					synchronized (this) {
 						s.setcurrentTrain(this);
 					}
-					
-					System.out.printf("Train #%d {capacity : %d/%d} is @ station %d\n", number,
-							this.robotList.size(), capacity, s.getNumber() + 1);
+
+					displayStatus(s, "@");
 
 					currStation = s.getNumber() + 1;
 
-					Thread.sleep(2000); // Loading and Unloading of robot passengers.
+					Thread.sleep(5000); // Loading and Unloading of robot passengers.
 
 					synchronized (this) {
 						s.setcurrentTrain(null);
 					}
 
-					s.getsemStation().release();
+					s.getsemStation().release();	// Releases the permit of the station, so that a new train can use the station.
 
-					System.out.printf("Train #%d {capacity : %d/%d} is leaving station %d\n", number,
-							this.robotList.size(), capacity, s.getNumber() + 1);
+					displayStatus(s, "leaving");
+
+					System.out.println("Train #" + this.number + " passenger list " + this.getRobotList());
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void displayStatus(Station s, String v) {
+		System.out.printf("Train #%d {capacity : %d/%d} is %s station %d\n", number, capacity, this.robotList.size(), v,
+				s.getNumber() + 1);
 	}
 
 	public Semaphore getSemTrain() {
@@ -69,14 +75,14 @@ public class Train implements Runnable {
 	}
 
 	public boolean isFull() {
-		return capacity <= robotList.size();
+		return robotList.size() >= capacity;
 	}
 
 	public void addrobot(Robot rider) {
 		if (!isFull())
 			this.robotList.add(rider);
 		else
-			System.out.println("Train #" + this.getNumber() + " is currently full. Cannot load more robot.");
+			System.out.println(this + " Train #" + this.getNumber() + " is currently full. Cannot load more robot.");
 	}
 
 	public void removeRobot(Robot r) {
