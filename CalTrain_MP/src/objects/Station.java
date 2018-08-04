@@ -5,8 +5,8 @@ import java.util.concurrent.Semaphore;
 
 public class Station {
 	private ArrayList<Robot> robotList;
+	private Semaphore semStation;
 	private Train currentTrain;
-	private Semaphore sem;
 	private String name;
 	private int number;
 
@@ -15,11 +15,24 @@ public class Station {
 		this.number = num;
 		this.currentTrain = null;
 		this.robotList = new ArrayList<Robot>();
-		this.sem = new Semaphore(1, true);
+		this.semStation = new Semaphore(1, true);
 	}
 
-	public void addrobot(Robot robot) {
+	public void addRobot(Robot robot) {
 		robotList.add(robot);
+	}
+
+	public void removeRobot(Robot r) {
+		robotList.remove(r);
+	}
+
+	public void removeRobot(int id) {
+		for (int i = 0; i < robotList.size(); i++) {
+			if (robotList.get(i).getId() == id) {
+				robotList.remove(i);
+				break;
+			}
+		}
 	}
 
 	public void displayrobots() {
@@ -27,16 +40,16 @@ public class Station {
 			System.out.println("Robot " + (i + 1) + " @" + name);
 		}
 	}
-	
-	public Semaphore getSem() {
-		return sem;
+
+	public Semaphore getsemStation() {
+		return semStation;
 	}
 
-	public void setSem(Semaphore sem) {
-		this.sem = sem;
+	public void setsemStation(Semaphore semStation) {
+		this.semStation = semStation;
 	}
 
-	public int getnumber() {
+	public int getNumber() {
 		return number;
 	}
 
@@ -58,10 +71,12 @@ public class Station {
 
 	public void setcurrentTrain(Train currentTrain) {
 		this.currentTrain = currentTrain;
-
-		System.out.println("Train #" + currentTrain.getNumber() + " is @ " + this.getname() + " station");
+		
+		if(currentTrain != null) {
+			System.out.println("Train #" + currentTrain.getNumber() + " is @ " + this.getname() + " station");
+		}
 	}
-	
+
 	public ArrayList<Robot> getRobotList() {
 		return robotList;
 	}

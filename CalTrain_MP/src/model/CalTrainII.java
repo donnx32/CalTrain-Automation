@@ -6,16 +6,16 @@ import objects.Robot;
 import objects.Station;
 import objects.Train;
 
-public class RailManager {
+public class CalTrainII {
 	private final String[] stationNames = { "Alpha", "Bravo", "Charlie", "Delta", "Echo", "Foxtrot", "Golf", "Hotel" };
 	public static ArrayList<Station> stationList;
 	private ArrayList<Thread> trainThreads;
 	private ArrayList<Train> trainList;
 
-	public RailManager() {
+	public CalTrainII() {
 		stationList = new ArrayList<Station>();
-		trainList = new ArrayList<Train>();
 		trainThreads = new ArrayList<Thread>();
+		trainList = new ArrayList<Train>();
 
 		for (int i = 0; i < stationNames.length; i++) {
 			stationList.add(new Station(stationNames[i], i));
@@ -37,7 +37,7 @@ public class RailManager {
 	}
 	
 	public void spawnRobot(int start, int destination) {
-		stationList.get(start - 1).addrobot(new Robot(start, destination));
+		stationList.get(start - 1).addRobot(new Robot(start, destination));
 	}
 	
 	public void spawnRobot(String start, String destination) {

@@ -20,7 +20,6 @@ public class RobotManager {
 	public void spawnRobot(int start, int destination) {
 		Robot r = new Robot(start, destination);
 
-		RailManager.stationList.get(start - 1).addrobot(r);
 		robotThreads.add(new Thread(r));
 		this.addRobot(r);
 		

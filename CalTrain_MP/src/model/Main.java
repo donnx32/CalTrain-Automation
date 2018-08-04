@@ -26,6 +26,6 @@ public class Main {
 	}
 	
 	public void addStationPassengers(int source, Robot robot) {
-		stations[source].addrobot(robot);
+		stations[source].addRobot(robot);
 	}
 }

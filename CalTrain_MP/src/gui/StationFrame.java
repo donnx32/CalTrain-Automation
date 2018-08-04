@@ -222,7 +222,7 @@ public class StationFrame extends JFrame {
 						Robot robot = new Robot(0, indexDestination);
 						// adds robot in the Source Station's waiting list
 //						System.out.println("station: " +Main.stations[i].getStation_name());
-						Main.stations[i].addrobot(robot);
+						Main.stations[i].addRobot(robot);
 						passengerList.add(robot); // not sure
 						break;
 					}

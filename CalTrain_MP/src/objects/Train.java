@@ -3,12 +3,12 @@ package objects;
 import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
 
-import model.RailManager;
+import model.CalTrainII;
 
 public class Train implements Runnable {
-	private Semaphore semStation;
 	private static int latestnumber = 0;
 	private ArrayList<Robot> robotList;
+	private Semaphore semTrain;
 	private int currStation;
 	private int capacity;
 	private int number;
@@ -17,30 +17,36 @@ public class Train implements Runnable {
 		latestnumber++;
 		this.setnumber(latestnumber);
 		this.setcapacity(capacity);
+		this.semTrain = new Semaphore(capacity, true);
 		this.robotList = new ArrayList<Robot>();
 	}
 
 	@Override
 	public void run() {
-		System.out.printf("Train {number : %d, capacity : %d seats, passengers : %d} deployed\n", number, capacity,
-				this.robotList.size());
+		System.out.printf("Train #%d {capacity : %d/%d} deployed\n", number, this.robotList.size(), capacity);
 
 		try {
 			while (true) {
-				for (Station s : RailManager.stationList) {
+				for (Station s : CalTrainII.stationList) {
 					Thread.sleep(4200); // Moving to the next station.
 
-					System.out.println("Train #" + this.getNumber() + " is approaching " + s.getname() + " station");
+					System.out.printf("Train #%d {capacity : %d/%d} is approaching station %d\n", number,
+							this.robotList.size(), capacity, s.getNumber());
+					s.getsemStation().acquire();
 
-					s.getSem().acquire();
 					synchronized (this) {
 						s.setcurrentTrain(this);
-						currStation = s.getnumber() + 1;
 					}
 
+					currStation = s.getNumber() + 1;
+
 					Thread.sleep(2000); // Loading and Unloading of robot passengers.
-					
-					s.getSem().release();
+
+					synchronized (this) {
+						s.setcurrentTrain(null);
+					}
+
+					s.getsemStation().release();
 
 					System.out.println("Train #" + this.getNumber() + " is leaving " + s.getname() + " station");
 				}
@@ -50,23 +56,36 @@ public class Train implements Runnable {
 		}
 	}
 
-	public Semaphore getSemStation() {
-		return semStation;
+	public Semaphore getSemTrain() {
+		return semTrain;
 	}
 
-	public void setSemStation(Semaphore semStation) {
-		this.semStation = semStation;
+	public void setSemTrain(Semaphore semTrain) {
+		this.semTrain = semTrain;
 	}
 
 	public boolean isFull() {
-		return capacity >= robotList.size();
+		return capacity <= robotList.size();
 	}
 
 	public void addrobot(Robot rider) {
 		if (!isFull())
 			this.robotList.add(rider);
 		else
-			System.out.println("Train #" + this.getNumber() + " is currently full. Cannot add more robot.");
+			System.out.println("Train #" + this.getNumber() + " is currently full. Cannot load more robot.");
+	}
+
+	public void removeRobot(Robot r) {
+		robotList.remove(r);
+	}
+
+	public void removeRobot(int id) {
+		for (int i = 0; i < robotList.size(); i++) {
+			if (robotList.get(i).getId() == id) {
+				robotList.remove(i);
+				break;
+			}
+		}
 	}
 
 	public ArrayList<Robot> getRobotList() {
