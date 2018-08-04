@@ -31,12 +31,15 @@ public class Train implements Runnable {
 					Thread.sleep(4200); // Moving to the next station.
 
 					System.out.printf("Train #%d {capacity : %d/%d} is approaching station %d\n", number,
-							this.robotList.size(), capacity, s.getNumber());
+							this.robotList.size(), capacity, s.getNumber() + 1);
 					s.getsemStation().acquire();
 
 					synchronized (this) {
 						s.setcurrentTrain(this);
 					}
+					
+					System.out.printf("Train #%d {capacity : %d/%d} is @ station %d\n", number,
+							this.robotList.size(), capacity, s.getNumber() + 1);
 
 					currStation = s.getNumber() + 1;
 
@@ -48,7 +51,8 @@ public class Train implements Runnable {
 
 					s.getsemStation().release();
 
-					System.out.println("Train #" + this.getNumber() + " is leaving " + s.getname() + " station");
+					System.out.printf("Train #%d {capacity : %d/%d} is leaving station %d\n", number,
+							this.robotList.size(), capacity, s.getNumber() + 1);
 				}
 			}
 		} catch (Exception e) {

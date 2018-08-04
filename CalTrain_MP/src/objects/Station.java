@@ -71,10 +71,6 @@ public class Station {
 
 	public void setcurrentTrain(Train currentTrain) {
 		this.currentTrain = currentTrain;
-		
-		if(currentTrain != null) {
-			System.out.println("Train #" + currentTrain.getNumber() + " is @ " + this.getname() + " station");
-		}
 	}
 
 	public ArrayList<Robot> getRobotList() {
