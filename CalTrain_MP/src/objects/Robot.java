@@ -1,65 +1,74 @@
 package objects;
 
-public class Robot {
+import model.RailManager;
+
+public class Robot implements Runnable {
+	private static int latestId = 0;
+	private int id;
+	private int start;
+	private int dest;
+	private boolean isOnBoard;
+
+	public Robot(int start, int dest) {
+		latestId++;
+		this.id = latestId;
+		this.start = start;
+		this.dest = dest;
+		isOnBoard = false;
+	}
+
+	@Override
+	public void run() {
+		System.out.println("HUHU!");
+		Station tempStation = RailManager.stationList.get(start - 1);
+		Train tempTrain;
+
+		tempStation.addrobot(this);
 		
-//	private String robot_name;
-	private String robotStatus;  // WAITING, RIDING
-	private int departureStation;
-	private Station robot_station;
-	
-	public Robot(Station station, int station_number) {
-		this.setrobotStatus("WAITING");
-		this.setdepartureStation(station_number);
-		this.setrobot_station(station);
+		while((tempTrain = RailManager.stationList.get(start - 1).getcurrentTrain()) == null){
+		}
+		
+		tempStation.getRobotList().remove(tempStation.getRobotList().size() - 1);
+		tempTrain.addrobot(this);
+
+		while (true) {
+			if(tempTrain.getCurrStation() == dest) {
+				tempTrain.getRobotList().remove(tempTrain.getRobotList().size() - 1);
+				setOnBoard(false);
+				System.out.println("FIN!");
+			}
+		}
 	}
 
-	
-//	public void run() {
-//		
-//	}
-	
-	//////////////////getters and setters////////////////////
-	/**
-	 * @return the robotStatus
-	 */
-	public String getrobotStatus() {
-		return robotStatus;
+	public int getId() {
+		return id;
 	}
 
-	/**
-	 * @param robotStatus the robotStatus to set
-	 */
-	public void setrobotStatus(String robotStatus) {
-		this.robotStatus = robotStatus;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	/**
-	 * @return the departureStation
-	 */
-	public int getdepartureStation() {
-		return departureStation;
+	public int getStart() {
+		return start;
 	}
 
-	/**
-	 * @param departureStation the departureStation to set
-	 */
-	public void setdepartureStation(int departureStation) {
-		this.departureStation = departureStation;
+	public void setStart(int start) {
+		this.start = start;
 	}
 
-	/**
-	 * @return the robot_station
-	 */
-	public Station getrobot_station() {
-		return robot_station;
+	public int getDest() {
+		return dest;
 	}
 
-	/**
-	 * @param robot_station the robot_station to set
-	 */
-	public void setrobot_station(Station robot_station) {
-		this.robot_station = robot_station;
+	public void setDest(int dest) {
+		this.dest = dest;
 	}
-	
-	
+
+	public boolean isOnBoard() {
+		return isOnBoard;
+	}
+
+	public void setOnBoard(boolean isOnBoard) {
+		this.isOnBoard = isOnBoard;
+	}
 }

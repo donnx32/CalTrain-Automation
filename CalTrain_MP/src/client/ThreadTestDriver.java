@@ -25,7 +25,7 @@ public class ThreadTestDriver {
 		
 		// Train Thread deployment simulation.
 		for (int i = 0; i < 16; i++) {
-			trainThreadArr[i] = new Thread(new Train(r.nextInt(50 + 1) + 50, stations));
+			trainThreadArr[i] = new Thread(new Train(r.nextInt(50 + 1) + 50 ));
 			trainThreadArr[i].start();
 			Thread.sleep(3500);
 		}

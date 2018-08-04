@@ -167,7 +167,7 @@ public class StationFrame extends JFrame {
 						JOptionPane.showMessageDialog(null, "Train must have at least 1 seat!", "Error", JOptionPane.ERROR_MESSAGE);
 					} else {
 						// add num to train
-						Main.trains[running_trains] = new Train(running_trains, num);						
+						Main.trains[running_trains] = new Train(num);						
 						running_trains++;
 						lblNumTrains.setText(running_trains +" trains of 16");
 						System.out.println("Train Successfully Added!!");
@@ -219,7 +219,7 @@ public class StationFrame extends JFrame {
 				
 				for (int i=0; i<Main.stations.length;i++) {
 					if (indexSourceStation == i) {
-						Robot robot = new Robot(Main.stations[i], indexDestination);
+						Robot robot = new Robot(0, indexDestination);
 						// adds robot in the Source Station's waiting list
 //						System.out.println("station: " +Main.stations[i].getStation_name());
 						Main.stations[i].addrobot(robot);

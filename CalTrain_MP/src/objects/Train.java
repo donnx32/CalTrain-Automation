@@ -1,62 +1,83 @@
 package objects;
 
 import java.util.ArrayList;
+import java.util.concurrent.Semaphore;
+
+import model.RailManager;
 
 public class Train implements Runnable {
+	private Semaphore semStation;
 	private static int latestnumber = 0;
-	private int number;
-	private String status; // STANDBY, MOVING, LOADING
-	private int capacity;
-	private boolean isDoorOpen;
-	private boolean isRunning;
 	private ArrayList<Robot> robotList;
-	private Station[] stations;
-	// private int currStation;
-	// Semaphores, locks, etc.
-	// private Semaphore available_seats;
+	private int currStation;
+	private int capacity;
+	private int number;
 
-	public Train(int num_of_seats, Station[] stations) {
+	public Train(int capacity) {
 		latestnumber++;
-		this.stations = stations;
 		this.setnumber(latestnumber);
-		this.setstatus("STANDBY");
-		this.setcapacity(num_of_seats);
-		this.setisDoorOpen(false);
-		this.setisRunning(true);
-		this.robotList = new ArrayList<Robot>();
-	}
-
-	public Train(int t_number, int num_of_seats) {
-		this.setnumber(t_number);
-		this.setstatus("STANDBY");
-		this.setcapacity(num_of_seats);
-		this.setisDoorOpen(false);
-		this.setisRunning(true);
+		this.setcapacity(capacity);
 		this.robotList = new ArrayList<Robot>();
 	}
 
 	@Override
 	public void run() {
-		try {
-			System.out.printf("Train deployed {number: %d, status: %s, capacity: %d seats}\n", number, status,
-					capacity);
+		System.out.printf("Train {number : %d, capacity : %d seats, passengers : %d} deployed\n", number, capacity,
+				this.robotList.size());
 
-			for (Station s : stations) {
-				System.out.println("Train #" + this.number + " is approaching " + s.getname() + " station");
-				Thread.sleep(1750);
-				System.out.println("Train #" + this.number + " is leaving " + s.getname() + " station");
+		try {
+			while (true) {
+				for (Station s : RailManager.stationList) {
+					Thread.sleep(4200); // Moving to the next station.
+
+					System.out.println("Train #" + this.getNumber() + " is approaching " + s.getname() + " station");
+
+					s.getSem().acquire();
+					synchronized (this) {
+						s.setcurrentTrain(this);
+						currStation = s.getnumber() + 1;
+					}
+
+					Thread.sleep(2000); // Loading and Unloading of robot passengers.
+					
+					s.getSem().release();
+
+					System.out.println("Train #" + this.getNumber() + " is leaving " + s.getname() + " station");
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void addrobot(Robot rider) {
-		this.robotList.add(rider);
+	public Semaphore getSemStation() {
+		return semStation;
 	}
 
-	///////////////// getters and setters////////////////////
-	public int getnumber() {
+	public void setSemStation(Semaphore semStation) {
+		this.semStation = semStation;
+	}
+
+	public boolean isFull() {
+		return capacity >= robotList.size();
+	}
+
+	public void addrobot(Robot rider) {
+		if (!isFull())
+			this.robotList.add(rider);
+		else
+			System.out.println("Train #" + this.getNumber() + " is currently full. Cannot add more robot.");
+	}
+
+	public ArrayList<Robot> getRobotList() {
+		return robotList;
+	}
+
+	public void setRobotList(ArrayList<Robot> robotList) {
+		this.robotList = robotList;
+	}
+
+	public int getNumber() {
 		return number;
 	}
 
@@ -64,12 +85,12 @@ public class Train implements Runnable {
 		this.number = number;
 	}
 
-	public String getstatus() {
-		return status;
+	public int getCurrStation() {
+		return currStation;
 	}
 
-	public void setstatus(String status) {
-		this.status = status;
+	public void setCurrStation(int currStation) {
+		this.currStation = currStation;
 	}
 
 	public int getcapacity() {
@@ -79,28 +100,4 @@ public class Train implements Runnable {
 	public void setcapacity(int capacity) {
 		this.capacity = capacity;
 	}
-
-	public boolean isisDoorOpen() {
-		return isDoorOpen;
-	}
-
-	public void setisDoorOpen(boolean isDoorOpen) {
-		this.isDoorOpen = isDoorOpen;
-	}
-
-	public boolean isisRunning() {
-		return isRunning;
-	}
-
-	public void setisRunning(boolean isRunning) {
-		this.isRunning = isRunning;
-	}
-
-//	public int getcurrStation() {
-//		return currStation;
-//	}
-//
-//	public void setcurrStation(int currStation) {
-//		this.currStation = currStation;
-//	}
 }

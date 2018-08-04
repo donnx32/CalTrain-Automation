@@ -2,38 +2,22 @@ package objects;
 
 import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.Lock;
 
 public class Station {
-
-	private int number;
-	private String name;
-	private Train currentTrain;
 	private ArrayList<Robot> robotList;
-
-	// The FUN objects
-	private Lock station_lock;
-	private Condition station_condition;
-	private Semaphore station_semaphore;
+	private Train currentTrain;
+	private Semaphore sem;
+	private String name;
+	private int number;
 
 	public Station(String name, int num) {
-		this.station_init(name, num);
-	}
-
-	/*
-	 * Initialize Station Object here
-	 */
-	public void station_init(String name, int number) {
 		this.name = name;
-		this.number = number; // will this be used??
-//		this.setStation_state("WAITING");
-//		this.setStation_robot_waiting(0);
+		this.number = num;
 		this.currentTrain = null;
 		this.robotList = new ArrayList<Robot>();
+		this.sem = new Semaphore(1, true);
 	}
 
-	// adds a robot into the list of robots waiting at the train station
 	public void addrobot(Robot robot) {
 		robotList.add(robot);
 	}
@@ -43,8 +27,14 @@ public class Station {
 			System.out.println("Robot " + (i + 1) + " @" + name);
 		}
 	}
+	
+	public Semaphore getSem() {
+		return sem;
+	}
 
-	/////////// setters and getters///////////////////
+	public void setSem(Semaphore sem) {
+		this.sem = sem;
+	}
 
 	public int getnumber() {
 		return number;
@@ -54,14 +44,6 @@ public class Station {
 		this.number = number;
 	}
 
-	public Train getcurrentTrain() {
-		return currentTrain;
-	}
-
-	public void setcurrentTrain(Train currentTrain) {
-		this.currentTrain = currentTrain;
-	}
-
 	public String getname() {
 		return name;
 	}
@@ -69,8 +51,22 @@ public class Station {
 	public void setname(String name) {
 		this.name = name;
 	}
+
+	public Train getcurrentTrain() {
+		return currentTrain;
+	}
+
+	public void setcurrentTrain(Train currentTrain) {
+		this.currentTrain = currentTrain;
+
+		System.out.println("Train #" + currentTrain.getNumber() + " is @ " + this.getname() + " station");
+	}
 	
-	public void test() {
-		System.out.println(name);
+	public ArrayList<Robot> getRobotList() {
+		return robotList;
+	}
+
+	public void setRobotList(ArrayList<Robot> robotList) {
+		this.robotList = robotList;
 	}
 }
