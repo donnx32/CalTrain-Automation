@@ -48,8 +48,8 @@ public class Train implements Runnable {
 
 					currStation = s.getNumber() + 1;
 
-					Thread.sleep(5000); // Loading and Unloading of robot passengers.
-
+					Thread.sleep(5000); // Loading and Unloading of robot passengers..
+					
 					synchronized (this) {
 						s.setcurrentTrain(null);
 					}
