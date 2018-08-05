@@ -1,8 +1,9 @@
 package objects;
 
-import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import model.CalTrainII;
 
@@ -10,11 +11,10 @@ public class Train implements Runnable {
 	private static int latestnumber = 0;
 	private ArrayList<Robot> robotList;
 	private Semaphore semTrain;
+	private Lock trainLock;
 	private int currStation;
 	private int capacity;
 	private int number;
-	private int x;
-	private int y;
 
 	public Train(int capacity) {
 		latestnumber++;
@@ -22,6 +22,7 @@ public class Train implements Runnable {
 		this.setcapacity(capacity);
 		this.semTrain = new Semaphore(capacity, true);
 		this.robotList = new ArrayList<Robot>();
+		this.trainLock = new ReentrantLock();
 	}
 
 	@Override
@@ -148,4 +149,14 @@ public class Train implements Runnable {
 	public void setcapacity(int capacity) {
 		this.capacity = capacity;
 	}
+
+	public Lock getTrainLock() {
+		return trainLock;
+	}
+
+	public void setTrainLock(Lock trainLock) {
+		this.trainLock = trainLock;
+	}
+	
+	
 }

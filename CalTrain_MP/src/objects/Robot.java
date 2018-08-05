@@ -72,9 +72,9 @@ public class Robot implements Runnable {
 					synchronized (this) {
 						myTrain.removeRobot(this);
 					}
-
-					myTrain.getSemTrain().release();
-					System.out.println("TRAIN #" + myTrain.getNumber() + " SEMA RELEASED");
+					if (!(CalTrainII.mode.equalsIgnoreCase("locks")))
+						myTrain.getSemTrain().release();
+					// System.out.println("TRAIN #" + myTrain.getNumber() + " SEMA RELEASED");
 					System.out.println(
 							this + " Robot Passenger " + this.id + " is alighting @ destination staion " + this.dest);
 
@@ -95,13 +95,22 @@ public class Robot implements Runnable {
 				e1.printStackTrace();
 			}
 			if (startStation.getcurrentTrain() != null) {
-				if (!(startStation.getcurrentTrain().isFull())) {
-					try {
-						startStation.getcurrentTrain().getSemTrain().acquire();
-						setMyTrain(startStation.getcurrentTrain());
-						break;
-					} catch (Exception e) {
-						e.printStackTrace();
+				synchronized (this) {
+					if (!(startStation.getcurrentTrain().isFull())) {
+						try {
+							if (CalTrainII.mode.equalsIgnoreCase("locks"))
+								startStation.getcurrentTrain().getTrainLock().lock();
+							else
+								startStation.getcurrentTrain().getSemTrain().acquire();
+							
+							setMyTrain(startStation.getcurrentTrain());
+							
+							if (CalTrainII.mode.equalsIgnoreCase("locks"))
+								startStation.getcurrentTrain().getTrainLock().unlock();
+							break;
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
 					}
 				}
 			}
