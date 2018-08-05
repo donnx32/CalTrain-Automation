@@ -49,16 +49,16 @@ public class Train implements Runnable {
 					currStation = s.getNumber() + 1;
 
 					Thread.sleep(5000); // Loading and Unloading of robot passengers..
-					
+
 					synchronized (this) {
 						s.setcurrentTrain(null);
 					}
 
 					if (CalTrainII.mode.equalsIgnoreCase("locks"))
-						s.getsemStation().release(); // Releases the permit of the station, so that a new train can use
-														// the station.
-					else
 						s.getStationLock().unlock();
+					else
+						s.getsemStation().release(); // Releases the permit of the station, so that a new train can use
+					// the station.
 
 					displayStatus(s, "leaving");
 
