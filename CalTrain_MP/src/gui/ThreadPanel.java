@@ -24,9 +24,9 @@ public class ThreadPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-    private BufferedImage trainImage, stationImage, bubbleImage, cityImage;
+    private BufferedImage trainImage, stationImage, bubbleImage, cityImage, railroadImage;
     private BufferedImage alpha,
-    					beta,
+    					bravo,
     					charlie,
     					delta,
     					echo,
@@ -34,20 +34,28 @@ public class ThreadPanel extends JPanel {
     					golf,
     					hotel;
     private int xPos = 0;
-    private int yPos = 135; // train starts at the top stations
-    private double direction = 1;
+    private int yPos = 140; // train starts at the top stations
+    private double direction = 1.0;
 
     public ThreadPanel() {
         try {
         	alpha = ImageIO.read(new File("src/res/alpha-station.png"));
+        	bravo = ImageIO.read(new File("src/res/bravo-station.png"));
+        	charlie = ImageIO.read(new File("src/res/charlie-station.png"));
+        	delta = ImageIO.read(new File("src/res/delta-station.png"));
+        	
+        	echo = ImageIO.read(new File("src/res/echo-station.png"));
         	foxtrot = ImageIO.read(new File("src/res/foxtrot-station.png"));
+        	golf = ImageIO.read(new File("src/res/golf-station.png"));
+        	hotel = ImageIO.read(new File("src/res/hotel-station.png"));
         	
         	cityImage = ImageIO.read(new File("src/res/city.jpg"));
+        	railroadImage = ImageIO.read(new File("src/res/longrail.png"));
         	
             trainImage = ImageIO.read(new File("src/res/train-cartoon.png"));
             stationImage = ImageIO.read(new File("src/res/station.png"));
             bubbleImage = ImageIO.read(new File("src/res/chat-bubble.png"));
-            Timer timer = new Timer(80, new ActionListener() {
+            Timer timer = new Timer(5, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                 	for (int i=0;i<Main.trains.length;i++) {
@@ -58,19 +66,20 @@ public class ThreadPanel extends JPanel {
                 		}
                 		
                 	}
-                	                	
+                
                     xPos += direction;
-                    if (xPos + trainImage.getWidth() > getWidth() && yPos == 135) {
+                    if (xPos + trainImage.getWidth() > getWidth() && yPos == 140) {
                     	xPos = 0;
-                    	yPos = 385;
-                    	direction *= 1;
-                    } else if (xPos + trainImage.getWidth() > getWidth() && yPos == 385) {
+                    	yPos = 370;
+                    	direction *= 1.0;
+                    } else if (xPos + trainImage.getWidth() > getWidth() && yPos == 370) {
                     	xPos = 0;
-                    	yPos = 135;
-                    	direction *= 1;
+                    	yPos = 140;
+                    	direction *= 1.0;
                     }
                     repaint();
                 }
+
             });
             timer.setRepeats(true);
             timer.setCoalesce(true);
@@ -124,13 +133,15 @@ public class ThreadPanel extends JPanel {
         int yRow = 70;
         g.drawImage(alpha, left, yRow, this); 
         g.drawImage(bubbleImage, left+(trainImage.getWidth()/2)+10, 10, this); left+=gap;
-		g.drawImage(stationImage, left, yRow, this);
+		g.drawImage(bravo, left, yRow, this);
 		g.drawImage(bubbleImage, left+(trainImage.getWidth()/2)+10, 10, this); left+=gap;
-		g.drawImage(stationImage, left, yRow, this);
+		g.drawImage(charlie, left, yRow, this);
 		g.drawImage(bubbleImage, left+(trainImage.getWidth()/2)+10, 10, this); left+=gap;
-		g.drawImage(stationImage, left, yRow, this);
+		g.drawImage(delta, left, yRow, this);
 		g.drawImage(bubbleImage, left+(trainImage.getWidth()/2)+10, 10, this); 
 
+		g.drawImage(railroadImage, 0, 165, this);
+		
 		width = cityImage.getWidth();
 		g.drawImage(cityImage, 0, 260, this); 
         g.drawImage(cityImage, width, 260, this); width += cityImage.getWidth();
@@ -138,15 +149,17 @@ public class ThreadPanel extends JPanel {
         g.drawImage(cityImage, width, 260, this);
         left=80;
         yRow = 300;
-		g.drawImage(stationImage, left, yRow, this);
+		g.drawImage(echo, left, yRow, this);
 		g.drawImage(bubbleImage, left+(trainImage.getWidth()/2)+10, 260, this); left+=gap;
 		g.drawImage(foxtrot, left, yRow, this);
 		g.drawImage(bubbleImage, left+(trainImage.getWidth()/2)+10, 260, this); left+=gap;
-		g.drawImage(stationImage, left, yRow, this);
+		g.drawImage(golf, left, yRow, this);
 		g.drawImage(bubbleImage, left+(trainImage.getWidth()/2)+10, 260, this); left+=gap;
-		g.drawImage(stationImage, left, yRow, this);
+		g.drawImage(hotel, left, yRow, this);
 		g.drawImage(bubbleImage, left+(trainImage.getWidth()/2)+10, 260, this);
         
+		g.drawImage(railroadImage, 0, 395, this);
+		
         g.drawImage(trainImage, xPos, yPos, this);
 
 //        System.out.println("height: "+getHeight() +" width: " +getWidth());

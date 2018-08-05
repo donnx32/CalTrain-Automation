@@ -73,9 +73,9 @@ public class Train implements Runnable {
 		}
 	}
 	
-	public void tick() {
-		repaint();
-	}
+//	public void tick() {
+//		repaint();
+//	}
 
 	public void displayStatus(Station s, String v) {
 		System.out.printf("Train #%d {capacity : %d/%d} is %s station %d\n", number, capacity, this.robotList.size(), v,
