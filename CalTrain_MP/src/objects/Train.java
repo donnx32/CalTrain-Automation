@@ -36,6 +36,7 @@ public class Train implements Runnable {
 					Thread.sleep(7200); // Moving to the next station.
 
 					displayStatus(s, "approaching");
+					// TODO: display train before the station its approaching
 
 					if (CalTrainII.mode.equalsIgnoreCase("locks"))
 						s.getStationLock().lock();
@@ -48,6 +49,7 @@ public class Train implements Runnable {
 					}
 
 					displayStatus(s, "@");
+					// TODO: display the train at the current station
 
 					currStation = s.getNumber() + 1;
 
@@ -64,6 +66,7 @@ public class Train implements Runnable {
 					// the station.
 
 					displayStatus(s, "leaving");
+					// TODO: display the train leaving the station
 
 					System.out.println("Train #" + this.number + " passenger list " + this.getRobotList());
 				}

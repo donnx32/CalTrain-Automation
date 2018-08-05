@@ -35,14 +35,14 @@ public class ThreadPanel extends JPanel {
     					hotel;
     private int xPos = 0;
     private int yPos = 140; // train starts at the top stations
-    private double direction = 1.0;
+    private double direction = 0.1;
 
     public ThreadPanel() {
         try {
         	alpha = ImageIO.read(new File("src/res/alpha-station.png"));
         	bravo = ImageIO.read(new File("src/res/bravo-station.png"));
         	charlie = ImageIO.read(new File("src/res/charlie-station.png"));
-        	delta = ImageIO.read(new File("src/res/delta-station.png"));
+        	delta = ImageIO.read(new File("src/res/delta-station.png"));	
         	
         	echo = ImageIO.read(new File("src/res/echo-station.png"));
         	foxtrot = ImageIO.read(new File("src/res/foxtrot-station.png"));
@@ -60,8 +60,8 @@ public class ThreadPanel extends JPanel {
                 public void actionPerformed(ActionEvent e) {
                 	for (int i=0;i<Main.trains.length;i++) {
                 		if (Main.trains[i] != null) { // checks if train is not yet initialized in array
-//                			if (Main.trains[i].getTrain_station_number() == 0) {
-//	                			System.out.println("train found at station 0!");
+//                			if (Main.trains[i].getCurrStation() == 0) {
+	                			System.out.printf("train found at station %d!", i);
 //	                		}	
                 		}
                 		
@@ -71,11 +71,11 @@ public class ThreadPanel extends JPanel {
                     if (xPos + trainImage.getWidth() > getWidth() && yPos == 140) {
                     	xPos = 0;
                     	yPos = 370;
-                    	direction *= 1.0;
+                    	direction *= 0.1;
                     } else if (xPos + trainImage.getWidth() > getWidth() && yPos == 370) {
                     	xPos = 0;
                     	yPos = 140;
-                    	direction *= 1.0;
+                    	direction *= 0.1;
                     }
                     repaint();
                 }
