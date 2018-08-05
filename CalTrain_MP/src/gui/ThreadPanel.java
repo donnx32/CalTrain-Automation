@@ -35,7 +35,7 @@ public class ThreadPanel extends JPanel {
     					hotel;
     private int xPos = 0;
     private int yPos = 135; // train starts at the top stations
-    private double direction = 0.1;
+    private double direction = 1;
 
     public ThreadPanel() {
         try {
@@ -47,7 +47,7 @@ public class ThreadPanel extends JPanel {
             trainImage = ImageIO.read(new File("src/res/train-cartoon.png"));
             stationImage = ImageIO.read(new File("src/res/station.png"));
             bubbleImage = ImageIO.read(new File("src/res/chat-bubble.png"));
-            Timer timer = new Timer(5, new ActionListener() {
+            Timer timer = new Timer(80, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                 	for (int i=0;i<Main.trains.length;i++) {
@@ -58,21 +58,19 @@ public class ThreadPanel extends JPanel {
                 		}
                 		
                 	}
-                	
-                	
+                	                	
                     xPos += direction;
                     if (xPos + trainImage.getWidth() > getWidth() && yPos == 135) {
                     	xPos = 0;
                     	yPos = 385;
-                    	direction *= 0.1;
+                    	direction *= 1;
                     } else if (xPos + trainImage.getWidth() > getWidth() && yPos == 385) {
                     	xPos = 0;
                     	yPos = 135;
-                    	direction *= 0.1;
+                    	direction *= 1;
                     }
                     repaint();
                 }
-
             });
             timer.setRepeats(true);
             timer.setCoalesce(true);

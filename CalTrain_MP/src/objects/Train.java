@@ -1,5 +1,6 @@
 package objects;
 
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
 
@@ -12,6 +13,8 @@ public class Train implements Runnable {
 	private int currStation;
 	private int capacity;
 	private int number;
+	private int x;
+	private int y;
 
 	public Train(int capacity) {
 		latestnumber++;
@@ -68,6 +71,10 @@ public class Train implements Runnable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void tick() {
+		repaint();
 	}
 
 	public void displayStatus(Station s, String v) {

@@ -9,9 +9,9 @@ import objects.Train;
 public class CalTrainII {
 	private final String[] stationNames = { "Alpha", "Bravo", "Charlie", "Delta", "Echo", "Foxtrot", "Golf", "Hotel" };
 	public static ArrayList<Station> stationList;
+	public static ArrayList<Train> trainList;
 	private ArrayList<Thread> trainThreads;
 	private ArrayList<Thread> robotThreads;
-	private ArrayList<Train> trainList;
 	private ArrayList<Robot> robotList;
 	public static String mode; // "semaphores" || "locks" ?
 

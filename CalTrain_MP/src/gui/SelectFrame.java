@@ -43,7 +43,7 @@ public class SelectFrame extends JFrame {
 				System.out.println("----- Run automation program using semaphores ---");
 				setVisible(false);
 				new StationFrame();
-//				System.exit(1);
+				//System.exit(1);
 			}
 		});
 		btnSemaphore.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -67,8 +67,5 @@ public class SelectFrame extends JFrame {
 			}
 		});
 		this.setVisible(true);
-		
-		
-		
 	}
 }
