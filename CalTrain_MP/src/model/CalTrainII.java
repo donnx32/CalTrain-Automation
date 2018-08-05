@@ -21,6 +21,7 @@ public class CalTrainII {
 		stationList = new ArrayList<Station>();
 		trainThreads = new ArrayList<Thread>();
 		trainList = new ArrayList<Train>();
+		mode = "";
 
 		for (int i = 0; i < stationNames.length; i++) {
 			stationList.add(new Station(stationNames[i], i));
