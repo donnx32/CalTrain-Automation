@@ -15,6 +15,8 @@ public class Train implements Runnable {
 	private int currStation;
 	private int capacity;
 	private int number;
+	private String status;
+	private String approachingStation;
 
 	public Train(int capacity) {
 		latestnumber++;
@@ -23,6 +25,7 @@ public class Train implements Runnable {
 		this.semTrain = new Semaphore(capacity, true);
 		this.robotList = new ArrayList<Robot>();
 		this.trainLock = new ReentrantLock();
+		this.status = "wait";
 	}
 
 	@Override
@@ -37,8 +40,12 @@ public class Train implements Runnable {
 					Thread.sleep(7200); // Moving to the next station.
 
 					displayStatus(s, "approaching");
+					setStatus("approaching");
+					this.approachingStation = s.getname();
 					// TODO: display train before the station its approaching
-
+					
+					Thread.sleep(3200); // Moving to the next station.
+					
 					if (CalTrainII.mode.equalsIgnoreCase("locks"))
 						s.getStationLock().lock();
 					else
@@ -50,6 +57,7 @@ public class Train implements Runnable {
 					}
 
 					displayStatus(s, "@");
+					setStatus("@");
 					// TODO: display the train at the current station
 
 					currStation = s.getNumber() + 1;
@@ -67,6 +75,8 @@ public class Train implements Runnable {
 					// the station.
 
 					displayStatus(s, "leaving");
+					setStatus("leaving");
+					
 					// TODO: display the train leaving the station
 
 					System.out.println("Train #" + this.number + " passenger list " + this.getRobotList());
@@ -156,6 +166,22 @@ public class Train implements Runnable {
 
 	public void setTrainLock(Lock trainLock) {
 		this.trainLock = trainLock;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getApproachingStation() {
+		return approachingStation;
+	}
+
+	public void setApproachingStation(String approachingStation) {
+		this.approachingStation = approachingStation;
 	}
 	
 	

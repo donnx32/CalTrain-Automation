@@ -1,5 +1,6 @@
 package client;
 
+import gui.StationFrame;
 import model.CalTrainII;
 
 public class TestingGrounds {
@@ -7,6 +8,7 @@ public class TestingGrounds {
 	public static void main(String[] args) throws InterruptedException {
 
 		CalTrainII C = new CalTrainII("locks");
+		new StationFrame();
 
 		C.spawnRobot(1, 5);
 		C.spawnRobot(1, 5);
