@@ -1,30 +1,49 @@
 package objects;
 
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+
+import javax.imageio.ImageIO;
 
 import model.CalTrainII;
 
 public class Train implements Runnable {
 	private static int latestnumber = 0;
 	private ArrayList<Robot> robotList;
+	private BufferedImage trainImage;
 	private Semaphore semTrain;
 	private Lock trainLock;
 	private int currStation;
 	private int capacity;
 	private int number;
+	private int x;
+	private int y;
+	private int v;
 	private String status;
 	private String approachingStation;
 
 	public Train(int capacity) {
+		x = -100;
+		y = 215;
+		v = 1;
 		latestnumber++;
 		this.setnumber(latestnumber);
 		this.setcapacity(capacity);
 		this.semTrain = new Semaphore(capacity, true);
 		this.robotList = new ArrayList<Robot>();
 		this.trainLock = new ReentrantLock();
+		try {
+			this.trainImage = ImageIO.read(new File("src/res/train.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.status = "wait";
 	}
 
@@ -86,10 +105,24 @@ public class Train implements Runnable {
 			e.printStackTrace();
 		}
 	}
-	
-//	public void tick() {
-//		repaint();
-//	}
+
+	public void paint(Graphics g) {
+		// g.drawImage(trainImage, null, x, y);
+		g.drawImage(trainImage, x, y, 100, 30, null);
+	}
+
+	public void update() {
+		x += v;
+		if (x >= 1180 && y == 215) {
+			x = 1180;
+			y = 478;
+			v = -1;
+		} else if(x <= -100 && y == 478) {
+			x = -100;
+			y = 215;
+			v = 1;
+		}
+	}
 
 	public void displayStatus(Station s, String v) {
 		System.out.printf("Train #%d {capacity : %d/%d} is %s station %d\n", number, capacity, this.robotList.size(), v,
@@ -167,7 +200,6 @@ public class Train implements Runnable {
 	public void setTrainLock(Lock trainLock) {
 		this.trainLock = trainLock;
 	}
-
 	public String getStatus() {
 		return status;
 	}
@@ -183,6 +215,4 @@ public class Train implements Runnable {
 	public void setApproachingStation(String approachingStation) {
 		this.approachingStation = approachingStation;
 	}
-	
-	
 }
