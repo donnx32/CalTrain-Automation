@@ -69,7 +69,7 @@ public class StationFrame extends JFrame {
 	 */
 	public StationFrame() {
 		caltrainMain = new Main();
-		setVisible(true);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1350, 550);
 		contentPane = new JPanel();
@@ -244,7 +244,7 @@ public class StationFrame extends JFrame {
 				}
 			}
 		});
-		
+		setVisible(true);
 //		UIManager.setLookAndFeel(metal);
 	}
 
