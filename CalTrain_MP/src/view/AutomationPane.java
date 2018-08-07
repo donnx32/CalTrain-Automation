@@ -27,7 +27,7 @@ public class AutomationPane extends JPanel {
 		setBounds(10, 11, 1152, 512);
 		
 		try {
-			background = ImageIO.read(new File("src/res/bg0.png"));
+			background = ImageIO.read(new File("src/res/demo.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
