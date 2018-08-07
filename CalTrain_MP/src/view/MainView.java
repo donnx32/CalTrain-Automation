@@ -9,6 +9,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -197,11 +198,23 @@ public class MainView extends JFrame {
 		
 		btnDeploy.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
-				
-				c.deployTrain(123);
-				model.addRow(new Object[]{"TRAIN"});
+				int cc = -1;
+				try{
+					cc = Integer.parseInt(txtFldCapacity.getText());
+				}catch(Exception e){
+					e.getMessage();
+				}
+				if(cc > -1){
+					c.deployTrain(123);
+					model.addRow(new Object[]{"TRAIN"});
+				}
+				else{
+					JOptionPane.showMessageDialog(null, "Error!! Invalid Input!!");
+				}
 			}
+			
 		});
+		
 		
 		System.out.println("Listeners succesfully generated...");
 	}
