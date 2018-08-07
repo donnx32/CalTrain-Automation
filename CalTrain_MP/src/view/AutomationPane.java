@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -58,6 +59,27 @@ public class AutomationPane extends JPanel {
 		Graphics2D g2d = (Graphics2D) g.create();
 		Iterator<Train> it = CalTrainII.trainList.iterator();
 		g.drawImage(background, 0, 0, 1152 ,512, this);
+		
+		g.setFont(new Font("Century Gothic", Font.PLAIN, 12)); 
+		int left = 150;
+		for(int i=0;i<8;i++) {
+			int wait = CalTrainII.stationList.get(i).getRobotList().size();
+			if (i<4) {
+				g.drawString(wait+" waiting", left, 120);
+				left = left + 285;
+				if (i==3)
+					left = 150;
+			} else {
+				g.drawString(wait+" waiting", left, 385);
+				left = left + 285;
+				if (i==7)
+					left = 150;
+			}
+		}
+//		int wait = CalTrainII.stationList.get(0).getRobotList().size();
+//		g.drawString(wait+" waiting", left, 120); left = left + 285; 
+//		wait = CalTrainII.stationList.get(1).getRobotList().size();
+//		g.drawString(wait+" waiting", left, 120);
 		
 		while(it.hasNext()) {
       		Train t = it.next();

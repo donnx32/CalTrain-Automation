@@ -43,7 +43,7 @@ public class Driver {
 				CalTrainII C = new CalTrainII();
 				new MainView(C);
 				
-				/*
+				
 				C.spawnRobot(1, 5);
 				C.spawnRobot(1, 5);
 				C.spawnRobot(1, 5);
@@ -52,7 +52,7 @@ public class Driver {
 				C.spawnRobot(2, 5);
 				C.spawnRobot(2, 7);
 				C.spawnRobot(3, 4);
-				C.spawnRobot(2, 5);*/
+				C.spawnRobot(2, 5);
 			}
 		});
 		btnSemaphore.setFont(new Font("Tahoma", Font.PLAIN, 15));
