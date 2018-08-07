@@ -21,7 +21,7 @@ public class Robot implements Runnable {
 
 	@Override
 	public void run() {
-		
+
 		/**
 		 * This will execute a typical passenger life span.
 		 * 
@@ -57,29 +57,27 @@ public class Robot implements Runnable {
 			startStation.removeRobot(this);
 			// System.out.println(this + " curr train is " + myTrain.getNumber());
 
-			synchronized (this) {
-				myTrain.addrobot(this);
-			}
+			myTrain.addrobot(this);
 
 			System.out.println(this + " Robot Passenger " + this.id + " is boarding in Train #" + myTrain.getNumber());
 
 			// Wait till train arrives @ destination.
 			while (true) {
-				Thread.sleep(1);
-
+				Thread.sleep(10);
+				
 				if (myTrain.getCurrStation() == dest) {
 
-					synchronized (this) {
-						myTrain.removeRobot(this);
-					}
+					myTrain.removeRobot(this);
+
 					if (!(CalTrainII.mode.equalsIgnoreCase("locks")))
 						myTrain.getSemTrain().release();
 					// System.out.println("TRAIN #" + myTrain.getNumber() + " SEMA RELEASED");
 					System.out.println(
-							this + " Robot Passenger " + this.id + " is alighting @ destination staion " + this.dest);
+							this + " Robot Passenger " + this.id + " is alighting @ destination station " + this.dest);
 
 					break;
 				}
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -90,7 +88,7 @@ public class Robot implements Runnable {
 		// Waiting for train...
 		while (true) {
 			try {
-				Thread.sleep(1); // Won't work without this, IDK why...
+				Thread.sleep(10); // Won't work without this, IDK why...
 			} catch (InterruptedException e1) {
 				e1.printStackTrace();
 			}
@@ -102,9 +100,9 @@ public class Robot implements Runnable {
 								startStation.getcurrentTrain().getTrainLock().lock();
 							else
 								startStation.getcurrentTrain().getSemTrain().acquire();
-							
+
 							setMyTrain(startStation.getcurrentTrain());
-							
+
 							if (CalTrainII.mode.equalsIgnoreCase("locks"))
 								startStation.getcurrentTrain().getTrainLock().unlock();
 							break;

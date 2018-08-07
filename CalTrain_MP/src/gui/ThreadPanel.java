@@ -65,12 +65,23 @@ public class ThreadPanel extends JPanel {
             trainImage = ImageIO.read(new File("src/res/train-cartoon.png"));
             stationImage = ImageIO.read(new File("src/res/station.png"));
             bubbleImage = ImageIO.read(new File("src/res/chat-bubble.png"));
-            for (int i=1; i<8; i++) {
+            for (int i=0; i<8; i++) {
             	waitLabels[i] = new JLabel("0 waiting passengers");
             }
             Timer timer = new Timer(5, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                	direction = 1;
+                    xPos += direction;
+                    if (xPos + trainImage.getWidth() > getWidth() && yPos == 140) {
+                    	xPos = 0;
+                    	yPos = 370;
+//                    	direction *= 1;
+                    } else if (xPos + trainImage.getWidth() > getWidth() && yPos == 370) {
+                    	xPos = 0;
+                    	yPos = 140;
+//                    	direction *= 1;
+                    }
                 	totalTrains = CalTrainII.trainList.size();
                 	int trainWidth = trainImage.getWidth();
                 	xPositions.clear();
@@ -83,6 +94,7 @@ public class ThreadPanel extends JPanel {
 	                			case "Alpha":  yPositions.add(140);
 	                				if (CalTrainII.trainList.get(i).getStatus().equalsIgnoreCase("approaching")) {
 	                					xPositions.add(100-trainWidth); 
+//	                					xPositions.get(index)
 	                				} else if (CalTrainII.trainList.get(i).getStatus().equalsIgnoreCase("@")) {
 	                					xPositions.add(100); 
 	                				} else 
@@ -152,17 +164,7 @@ public class ThreadPanel extends JPanel {
                 		}
                 		
                 	}
-                
-                    xPos += direction;
-                    if (xPos + trainImage.getWidth() > getWidth() && yPos == 140) {
-                    	xPos = 0;
-                    	yPos = 370;
-                    	direction *= 0.1;
-                    } else if (xPos + trainImage.getWidth() > getWidth() && yPos == 370) {
-                    	xPos = 0;
-                    	yPos = 140;
-                    	direction *= 0.1;
-                    }
+                	
                     repaint();
                 }
 
@@ -189,17 +191,17 @@ public class ThreadPanel extends JPanel {
         super.paintComponent(g);
         
         
-        for (int i=1; i<8; i++) {
-        	int waiting = CalTrainII.stationList.get(i).getNumber();
-        	waitLabels[i].setText(Integer.toString(waiting));
-        	waitLabels[i].setFont(new Font("Segoe UI", Font.BOLD, 16));
+        for (int i=0; i<8; i++) {
+        	int waiting = CalTrainII.stationList.get(i).getRobotList().size();
+        	waitLabels[i].setText(waiting+" waiting");
+        	waitLabels[i].setFont(new Font("Segoe UI", Font.BOLD, 15));
         	waitLabels[i].setHorizontalAlignment(SwingConstants.LEFT);
         	
 //        	if (i<4) {
         		waitLabels[i].setBounds(xLbl, yLbl, 74, 23);
         		xLbl += 280;
         		if (i==3) {
-        			xLbl = 150;
+        			xLbl = 170;
         			yLbl = 280;
         		}
         		if (i==7) {
@@ -239,7 +241,7 @@ public class ThreadPanel extends JPanel {
         g.drawImage(cityImage, width, 260, this); width += cityImage.getWidth();
         g.drawImage(cityImage, width, 260, this); width += cityImage.getWidth();
         g.drawImage(cityImage, width, 260, this);
-        left=80;
+        left=100;
         yRow = 300;
 		g.drawImage(echo, left, yRow, this);
 		g.drawImage(bubbleImage, left+(trainImage.getWidth()/2)+10, 260, this); left+=gap;
@@ -256,10 +258,8 @@ public class ThreadPanel extends JPanel {
 			g.drawImage(trainImage, xPositions.get(i), yPositions.get(i), this);
 		}
         
-
+		g.drawImage(trainImage, xPos, yPos, this);
 //        System.out.println("height: "+getHeight() +" width: " +getWidth());
     }
 
 }
-
-

@@ -197,6 +197,7 @@ public class MainView extends JFrame {
 		
 		btnDeploy.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
+				
 				c.deployTrain(123);
 				model.addRow(new Object[]{"TRAIN"});
 			}

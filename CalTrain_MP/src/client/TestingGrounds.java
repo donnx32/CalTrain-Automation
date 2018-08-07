@@ -27,5 +27,8 @@ public class TestingGrounds {
 		Thread.sleep(5000);
 
 		C.deployTrain(6);
+		
+//		Thread.sleep(3*60*1000);
+//		System.exit(0);
 	}
 }

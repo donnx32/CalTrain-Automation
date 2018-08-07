@@ -143,13 +143,17 @@ public class Train implements Runnable {
 
 	public void addrobot(Robot rider) {
 		if (!isFull())
-			this.robotList.add(rider);
+			synchronized (this) {
+				this.robotList.add(rider);
+			}			
 		else
 			System.out.println(this + " Train #" + this.getNumber() + " is currently full. Cannot load more robot.");
 	}
 
 	public void removeRobot(Robot r) {
-		robotList.remove(r);
+		synchronized (this) {
+			robotList.remove(r);
+		}
 	}
 
 	public void removeRobot(int id) {
