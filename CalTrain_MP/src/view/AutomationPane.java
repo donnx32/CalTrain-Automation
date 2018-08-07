@@ -21,6 +21,7 @@ public class AutomationPane extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private BufferedImage background;
+	private BufferedImage tunnel;
 
 	public AutomationPane() {
 		setBackground(Color.CYAN);
@@ -28,6 +29,7 @@ public class AutomationPane extends JPanel {
 		
 		try {
 			background = ImageIO.read(new File("src/res/demo.png"));
+			tunnel = ImageIO.read(new File("src/res/Tunnels.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -56,13 +58,14 @@ public class AutomationPane extends JPanel {
 		Graphics2D g2d = (Graphics2D) g.create();
 		Iterator<Train> it = CalTrainII.trainList.iterator();
 		g.drawImage(background, 0, 0, 1152 ,512, this);
+		
 		while(it.hasNext()) {
       		Train t = it.next();
       		
       		t.paint(g);
       		
       	}
-
+		g.drawImage(tunnel, 0, 0, 1152 ,512, this);
 		
 		g2d.dispose();
 	}

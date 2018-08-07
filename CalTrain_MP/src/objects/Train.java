@@ -31,7 +31,7 @@ public class Train implements Runnable {
 	private Station nStation = CalTrainII.stationList.get(0);
 
 	public Train(int capacity) {
-		x = -170;
+		x = -193;
 		y = 215;
 		v = 1;
 		latestnumber++;
@@ -130,10 +130,10 @@ public class Train implements Runnable {
 					x = 675;
 					break;
 				case "Delta":
-					x = 960;
+					x = 965;
 					break;
 				case "Echo":
-					x = 960;
+					x = 965;
 					break;
 				case "Foxtrot":
 					x = 675;
@@ -157,8 +157,8 @@ public class Train implements Runnable {
 			x = 1180;
 			y = 478;
 			v = -1;
-		} else if (x <= -170 && y == 478) {
-			x = -170;
+		} else if (x <= -193 && y == 478) {
+			x = -193;
 			y = 215;
 			v = 1;
 		}
