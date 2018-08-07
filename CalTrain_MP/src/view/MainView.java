@@ -26,7 +26,7 @@ public class MainView extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JTextField txtFldCapacity;
 	private CalTrainII c;
-	private DefaultTableModel model;
+	public static DefaultTableModel model;
 	private JTable table;
 	private JPanel btnDeploy;
 	

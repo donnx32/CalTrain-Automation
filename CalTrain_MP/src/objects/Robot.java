@@ -1,6 +1,7 @@
 package objects;
 
 import model.CalTrainII;
+import view.MainView;
 
 public class Robot implements Runnable {
 	private static int latestId = 0;
@@ -46,9 +47,8 @@ public class Robot implements Runnable {
 
 			startStation.addRobot(this);
 
-			System.out.printf(this + " Robot Passenger %d is waiting @ station %d destination %d\n", this.id,
-					this.start, this.dest);
-
+			String info = this + " Robot Passenger " + this.id + " is waiting @ station" + this.start + " destination " + this.dest + "\n";
+			MainView.model.addRow(new Object[]{info});
 			synchronized (this) {
 				waitForTrain(startStation);
 			}

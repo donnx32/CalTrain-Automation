@@ -12,6 +12,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import javax.imageio.ImageIO;
 
 import model.CalTrainII;
+import view.MainView;
 
 public class Train implements Runnable {
 	private static int latestnumber = 0;
@@ -98,7 +99,7 @@ public class Train implements Runnable {
 					
 					// TODO: display the train leaving the station
 
-					System.out.println("Train #" + this.number + " passenger list " + this.getRobotList());
+					//System.out.println("Train #" + this.number + " passenger list " + this.getRobotList());
 				}
 			}
 		} catch (Exception e) {
@@ -125,8 +126,13 @@ public class Train implements Runnable {
 	}
 
 	public void displayStatus(Station s, String v) {
-		System.out.printf("Train #%d {capacity : %d/%d} is %s station %d\n", number, capacity, this.robotList.size(), v,
-				s.getNumber() + 1);
+		String info ="[" + java.time.LocalTime.now() + "]" + " Train" + number + "{capacity :" + capacity + "/" + this.robotList.size() + "} is" + v + "station" + s.getNumber() + 1 +"\n";
+		
+		//System.out.println(java.time.LocalTime.now());
+		System.out.printf(info);
+		 
+		
+		MainView.model.addRow(new Object[]{info});
 	}
 
 	public Semaphore getSemTrain() {
