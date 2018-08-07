@@ -195,6 +195,12 @@ public class MainView extends JFrame {
 	
 	public void generateListeners() {
 		System.out.println("Generating listeners...");
+		txtFldCapacity.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent evt) {
+				txtFldCapacity.setText("");
+			}
+		});
+		
 		
 		btnDeploy.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
@@ -205,12 +211,13 @@ public class MainView extends JFrame {
 					e.getMessage();
 				}
 				if(cc > -1){
-					c.deployTrain(123);
-					model.addRow(new Object[]{"TRAIN"});
+					c.deployTrain(cc);
+					//model.addRow(new Object[]{"TRAIN"});
 				}
 				else{
 					JOptionPane.showMessageDialog(null, "Error!! Invalid Input!!");
 				}
+				txtFldCapacity.setText("Capacity");
 			}
 			
 		});
