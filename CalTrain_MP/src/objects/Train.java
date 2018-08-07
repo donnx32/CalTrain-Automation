@@ -1,5 +1,7 @@
 package objects;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -62,8 +64,10 @@ public class Train implements Runnable {
 					//Thread.sleep(7200); // Moving to the next station.
 
 					displayStatus(s, "approaching");
-					setStatus("approaching");
+					
 					this.approachingStation = s.getname();
+					setStatus("approaching");
+					
 					// TODO: display train before the station its approaching
 					
 					Thread.sleep(3200); // Moving to the next station.
@@ -111,14 +115,25 @@ public class Train implements Runnable {
 
 	public void paint(Graphics g) {
 		// g.drawImage(trainImage, null, x, y);
+		g.setFont(new Font("Century Gothic", Font.BOLD, 35));
+		g.setColor(Color.WHITE);
+		
 		g.drawImage(trainImage, x, y, 100, 30, null);
+		
+		g.drawString(String.valueOf(number), x + 45, y + 15);
 	}
 
 	public void update() {
+		int z;
 		//x += v;
-		
-		if (nStation.getcurrentTrain() != null) {
-			if (status.equalsIgnoreCase("@")) {
+		/*try {
+			Thread.sleep(1);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		if (nStation.getcurrentTrain() == this) {
+			//if (status.equalsIgnoreCase("@")) {
 				switch (nStation.getname()) {
 				case "Alpha":
 					x = 97;
@@ -145,19 +160,46 @@ public class Train implements Runnable {
 					x = 97;
 					break;
 				}
-			}
+			//}
 		} else {
-			if (status.equalsIgnoreCase("approaching")) {
-				x += v;
-			}
-	
-		} 
+			//x += v;
+				if (nStation.getcurrentTrain() != null) {					
+					switch (nStation.getname()) {
+					case "Alpha":
+						x = -190;
+						break;
+					case "Bravo":
+						x = 240;
+						break;
+					case "Charlie":
+						x = 530;
+						break;
+					case "Delta":
+						x = 820;
+						break;
+					case "Echo":
+						x = 1180;
+						break;
+					case "Foxtrot":
+						x = 820;
+						break;
+					case "Golf":
+						x = 530;
+						break;
+					case "Hotel":
+						x = 240;
+						break;
+					}
+				} else {
+					x += v;
+				}
+		}
 
 		if (x >= 1180 && y == 215) {
 			x = 1180;
 			y = 478;
 			v = -1;
-		} else if (x <= -193 && y == 478) {
+		} else if (x <= -50 && y == 478) {
 			x = -193;
 			y = 215;
 			v = 1;
