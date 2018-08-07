@@ -29,6 +29,10 @@ public class MainView extends JFrame {
 	public static DefaultTableModel model;
 	private JTable table;
 	private JPanel btnDeploy;
+	private JPanel btnSpawn;
+	JComboBox<String> cmbBoxStart;
+	JComboBox<String> cmbBoxDestination;
+	
 	
 	public MainView(CalTrainII c) {
 		setTitle("CalTrainII Automation");
@@ -101,7 +105,7 @@ public class MainView extends JFrame {
 		pnlRobotGenerator.setBounds(271, 570, 378, 140);
 		contentPane.add(pnlRobotGenerator);
 		
-		JPanel btnSpawn = new JPanel();
+		btnSpawn = new JPanel();
 		btnSpawn.setLayout(null);
 		btnSpawn.setBackground(Color.DARK_GRAY);
 		btnSpawn.setBounds(142, 102, 86, 27);
@@ -127,7 +131,7 @@ public class MainView extends JFrame {
 		separator_2.setBounds(108, 36, 157, 8);
 		pnlRobotGenerator.add(separator_2);
 		
-		JComboBox<String> cmbBoxStart = new JComboBox<String>();
+		cmbBoxStart = new JComboBox<String>();
 		cmbBoxStart.setFont(new Font("Century Gothic", Font.PLAIN, 12));
 		cmbBoxStart.setModel(new DefaultComboBoxModel<String>(new String[] {"Alpha", "Bravo", "Charlie", "Delta", "Echo", "Foxtrot", "Golf", "Hotel"}));
 		cmbBoxStart.setBounds(72, 61, 100, 30);
@@ -138,7 +142,7 @@ public class MainView extends JFrame {
 		lblDestination.setBounds(196, 41, 80, 20);
 		pnlRobotGenerator.add(lblDestination);
 		
-		JComboBox<String> cmbBoxDestination = new JComboBox<String>();
+		cmbBoxDestination = new JComboBox<String>();
 		cmbBoxDestination.setFont(new Font("Century Gothic", Font.PLAIN, 12));
 		cmbBoxDestination.setModel(new DefaultComboBoxModel<String>(new String[] {"Alpha", "Bravo", "Charlie", "Delta", "Echo", "Foxtrot", "Golf", "Hotel"}));
 		cmbBoxDestination.setBounds(195, 61, 100, 30);
@@ -201,6 +205,16 @@ public class MainView extends JFrame {
 			}
 		});
 		
+		btnSpawn.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent evt) {
+				if (cmbBoxStart.getSelectedIndex() != cmbBoxDestination.getSelectedIndex()) {
+				c.spawnRobot(cmbBoxStart.getSelectedIndex() + 1, cmbBoxDestination.getSelectedIndex() + 1);
+			
+				} else {
+					JOptionPane.showMessageDialog(null, "Error!! Invalid Input!!");
+				}
+			}
+		});
 		
 		btnDeploy.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {

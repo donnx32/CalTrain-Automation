@@ -200,14 +200,14 @@ public class Train implements Runnable {
 			y = 478;
 			v = -1;
 		} else if (x <= -50 && y == 478) {
-			x = -193;
+			x = -130;
 			y = 215;
 			v = 1;
 		}
 	}
 
 	public void displayStatus(Station s, String v) {
-		String info ="[" + java.time.LocalTime.now() + "]" + " Train" + number + "{capacity :" + capacity + "/" + this.robotList.size() + "} is" + v + "station" + s.getNumber() + 1 +"\n";
+		String info ="[" + java.time.LocalTime.now() + "]" + " Train" + number + "{capacity :" + capacity + "/" + this.robotList.size() + "} is " + v + " station " + s.getNumber() +"\n";
 		
 		//System.out.println(java.time.LocalTime.now());
 		System.out.printf(info);

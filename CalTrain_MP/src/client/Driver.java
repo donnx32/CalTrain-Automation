@@ -74,7 +74,8 @@ public class Driver {
 				System.out.println("----- Run automation program using locks ---");
 				CalTrainII C = new CalTrainII("locks");
 				new MainView(C);
-				C.spawnRobot(1, 5);
+	
+				/*C.spawnRobot(1, 5);
 				C.spawnRobot(1, 5);
 				C.spawnRobot(1, 5);
 				C.spawnRobot(2, 4);
@@ -82,7 +83,7 @@ public class Driver {
 				C.spawnRobot(2, 5);
 				C.spawnRobot(2, 7);
 				C.spawnRobot(3, 4);
-				C.spawnRobot(2, 5);
+				C.spawnRobot(2, 5);*/
 			}
 		});
 		

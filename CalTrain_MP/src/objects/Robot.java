@@ -47,7 +47,7 @@ public class Robot implements Runnable {
 
 			startStation.addRobot(this);
 
-			String info = this + " Robot Passenger " + this.id + " is waiting @ station" + this.start + " destination " + this.dest + "\n";
+			String info = "[" + java.time.LocalTime.now() + "]" + " Passenger " + this.id + " is waiting @ station" + this.start + ", destination " + this.dest + "\n";
 			MainView.model.addRow(new Object[]{info});
 			synchronized (this) {
 				waitForTrain(startStation);
@@ -59,8 +59,9 @@ public class Robot implements Runnable {
 
 			myTrain.addrobot(this);
 
-			System.out.println(this + " Robot Passenger " + this.id + " is boarding in Train #" + myTrain.getNumber());
-
+			System.out.println("Robot Passenger " + this.id + " is boarding in Train #" + myTrain.getNumber());
+			MainView.model.addRow(new Object[]{"[" + java.time.LocalTime.now() + "]" +" Robot Passenger " + this.id + " is boarding in Train #" + myTrain.getNumber()});
+			
 			// Wait till train arrives @ destination.
 			while (true) {
 				Thread.sleep(10);
@@ -74,7 +75,7 @@ public class Robot implements Runnable {
 					// System.out.println("TRAIN #" + myTrain.getNumber() + " SEMA RELEASED");
 					System.out.println(
 							this + " Robot Passenger " + this.id + " is alighting @ destination station " + this.dest);
-
+					MainView.model.addRow(new Object[]{"[" + java.time.LocalTime.now() + "]" +" Robot Passenger " + this.id + " is alighting @ destination station " + this.dest});
 					break;
 				}
 				
