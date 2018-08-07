@@ -33,7 +33,7 @@ public class AutomationPane extends JPanel {
 		}
 		
 		
-		Timer timer = new Timer(5, new ActionListener() {
+		Timer timer = new Timer(9, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
             	

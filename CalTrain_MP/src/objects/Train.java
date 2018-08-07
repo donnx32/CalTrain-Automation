@@ -28,9 +28,10 @@ public class Train implements Runnable {
 	private int v;
 	private String status;
 	private String approachingStation;
+	private Station nStation = CalTrainII.stationList.get(0);
 
 	public Train(int capacity) {
-		x = -100;
+		x = -170;
 		y = 215;
 		v = 1;
 		latestnumber++;
@@ -57,7 +58,8 @@ public class Train implements Runnable {
 			// program is terminated.
 			while (true) {
 				for (Station s : CalTrainII.stationList) {
-					Thread.sleep(7200); // Moving to the next station.
+					nStation = s;
+					//Thread.sleep(7200); // Moving to the next station.
 
 					displayStatus(s, "approaching");
 					setStatus("approaching");
@@ -113,13 +115,50 @@ public class Train implements Runnable {
 	}
 
 	public void update() {
-		x += v;
+		//x += v;
+		
+		if (nStation.getcurrentTrain() != null) {
+			if (status.equalsIgnoreCase("@")) {
+				switch (nStation.getname()) {
+				case "Alpha":
+					x = 97;
+					break;
+				case "Bravo":
+					x = 385;
+					break;
+				case "Charlie":
+					x = 675;
+					break;
+				case "Delta":
+					x = 960;
+					break;
+				case "Echo":
+					x = 960;
+					break;
+				case "Foxtrot":
+					x = 675;
+					break;
+				case "Golf":
+					x = 385;
+					break;
+				case "Hotel":
+					x = 97;
+					break;
+				}
+			}
+		} else {
+			if (status.equalsIgnoreCase("approaching")) {
+				x += v;
+			}
+	
+		} 
+
 		if (x >= 1180 && y == 215) {
 			x = 1180;
 			y = 478;
 			v = -1;
-		} else if(x <= -100 && y == 478) {
-			x = -100;
+		} else if (x <= -170 && y == 478) {
+			x = -170;
 			y = 215;
 			v = 1;
 		}
