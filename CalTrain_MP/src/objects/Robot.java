@@ -47,8 +47,9 @@ public class Robot implements Runnable {
 
 			startStation.addRobot(this);
 
-			String info = "[" + java.time.LocalTime.now() + "]" + " Passenger " + this.id + " is waiting @ station" + this.start + ", destination " + this.dest + "\n";
-			MainView.model.addRow(new Object[]{info});
+			String info = "[" + java.time.LocalTime.now() + "]" + " Passenger " + this.id + " is waiting @ station"
+					+ this.start + ", destination " + this.dest + "\n";
+			MainView.model.addRow(new Object[] { info });
 			synchronized (this) {
 				waitForTrain(startStation);
 			}
@@ -57,15 +58,18 @@ public class Robot implements Runnable {
 			startStation.removeRobot(this);
 			// System.out.println(this + " curr train is " + myTrain.getNumber());
 
-			myTrain.addrobot(this);
+			// System.out.println("myTrain: "+myTrain);
+			// System.out.println("this: " +this);
+			// myTrain.addrobot(this);
 
 			System.out.println("Robot Passenger " + this.id + " is boarding in Train #" + myTrain.getNumber());
-			MainView.model.addRow(new Object[]{"[" + java.time.LocalTime.now() + "]" +" Robot Passenger " + this.id + " is boarding in Train #" + myTrain.getNumber()});
-			
+			MainView.model.addRow(new Object[] { "[" + java.time.LocalTime.now() + "]" + " Robot Passenger " + this.id
+					+ " is boarding in Train #" + myTrain.getNumber() });
+
 			// Wait till train arrives @ destination.
 			while (true) {
-				Thread.sleep(10);
-				
+				Thread.sleep(11);
+
 				if (myTrain.getCurrStation() == dest) {
 
 					myTrain.removeRobot(this);
@@ -75,10 +79,11 @@ public class Robot implements Runnable {
 					// System.out.println("TRAIN #" + myTrain.getNumber() + " SEMA RELEASED");
 					System.out.println(
 							this + " Robot Passenger " + this.id + " is alighting @ destination station " + this.dest);
-					MainView.model.addRow(new Object[]{"[" + java.time.LocalTime.now() + "]" +" Robot Passenger " + this.id + " is alighting @ destination station " + this.dest});
+					MainView.model.addRow(new Object[] { "[" + java.time.LocalTime.now() + "]" + " Robot Passenger "
+							+ this.id + " is alighting @ destination station " + this.dest });
 					break;
 				}
-				
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -89,23 +94,29 @@ public class Robot implements Runnable {
 		// Waiting for train...
 		while (true) {
 			try {
-				Thread.sleep(10); // Won't work without this, IDK why...
+				Thread.sleep(11); // Won't work without this, IDK why...
 			} catch (InterruptedException e1) {
 				e1.printStackTrace();
 			}
-			if (startStation.getcurrentTrain() != null) {
-				synchronized (this) {
+			synchronized (this) {
+				if (startStation.getcurrentTrain() != null) {
+
 					if (!(startStation.getcurrentTrain().isFull())) {
 						try {
 							if (CalTrainII.mode.equalsIgnoreCase("locks"))
 								startStation.getcurrentTrain().getTrainLock().lock();
 							else
 								startStation.getcurrentTrain().getSemTrain().acquire();
-
-							setMyTrain(startStation.getcurrentTrain());
-
-							if (CalTrainII.mode.equalsIgnoreCase("locks"))
-								startStation.getcurrentTrain().getTrainLock().unlock();
+							synchronized (this) {
+								setMyTrain(startStation.getcurrentTrain());
+								System.out.println(myTrain+" this robot: "+this);
+							
+								myTrain.addrobot(this);
+							}
+							synchronized(this) {
+								if (CalTrainII.mode.equalsIgnoreCase("locks"))
+									startStation.getcurrentTrain().getTrainLock().unlock();
+							}
 							break;
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -153,6 +164,8 @@ public class Robot implements Runnable {
 	}
 
 	public void setMyTrain(Train myTrain) {
-		this.myTrain = myTrain;
+		synchronized (this) {
+			this.myTrain = myTrain;
+		}
 	}
 }

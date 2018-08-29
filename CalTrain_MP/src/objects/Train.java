@@ -64,44 +64,38 @@ public class Train implements Runnable {
 					//Thread.sleep(7200); // Moving to the next station.
 
 					displayStatus(s, "approaching");
-					
 					this.approachingStation = s.getname();
 					setStatus("approaching");
-					
-					// TODO: display train before the station its approaching
-					
-					Thread.sleep(3200); // Moving to the next station.
+					Thread.sleep(3100); // Moving to the next station.
 					
 					if (CalTrainII.mode.equalsIgnoreCase("locks"))
 						s.getStationLock().lock();
 					else
 						s.getsemStation().acquire(); // Gets the permit to use the station, so that no other train can
 														// enter.
-
 					synchronized (this) {
 						s.setcurrentTrain(this);
 					}
 
 					displayStatus(s, "@");
 					setStatus("@");
-					// TODO: display the train at the current station
 
 					currStation = s.getNumber() + 1;
 
-					Thread.sleep(5000); // Loading and Unloading of robot passengers..
-
+					Thread.sleep(3100); // Loading and Unloading of robot passengers..
 					synchronized (this) {
 						s.setcurrentTrain(null);
 					}
 
+					displayStatus(s, "leaving");
+					setStatus("leaving");
+					
 					if (CalTrainII.mode.equalsIgnoreCase("locks"))
 						s.getStationLock().unlock();
 					else
 						s.getsemStation().release(); // Releases the permit of the station, so that a new train can use
 					// the station.
 
-					displayStatus(s, "leaving");
-					setStatus("leaving");
 					
 					// TODO: display the train leaving the station
 
@@ -196,11 +190,11 @@ public class Train implements Runnable {
 		}
 
 		if (x >= 1180 && y == 215) {
-			x = 1180;
+			x = 1040;
 			y = 478;
 			v = -1;
 		} else if (x <= -50 && y == 478) {
-			x = -130;
+			x = -50;
 			y = 215;
 			v = 1;
 		}

@@ -23,11 +23,15 @@ public class Station {
 	}
 
 	public void addRobot(Robot robot) {
-		robotList.add(robot);
+		synchronized (this) {
+			robotList.add(robot);
+		}
 	}
 
 	public void removeRobot(Robot r) {
-		robotList.remove(r);
+		synchronized (this) {
+			robotList.remove(r);
+		}
 	}
 
 	public void removeRobot(int id) {
@@ -70,11 +74,15 @@ public class Station {
 	}
 
 	public Train getcurrentTrain() {
-		return currentTrain;
+		synchronized(this) {
+			return currentTrain;
+		}
 	}
 
 	public void setcurrentTrain(Train currentTrain) {
-		this.currentTrain = currentTrain;
+		synchronized(this) {
+			this.currentTrain = currentTrain;
+		}
 	}
 
 	public ArrayList<Robot> getRobotList() {

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import objects.Robot;
 import objects.Station;
 import objects.Train;
+import view.MainView;
 
 public class CalTrainII {
 	private final String[] stationNames = { "Alpha", "Bravo", "Charlie", "Delta", "Echo", "Foxtrot", "Golf", "Hotel" };
@@ -48,6 +49,30 @@ public class CalTrainII {
 	public void spawnRobot(int start, int destination) {
 		Robot r = new Robot(start, destination);
 
+		/////////////////////////////////////
+//		Station startStation = stationList.get(start - 1);
+//		startStation.addRobot(r);
+//
+//		String info = "[" + java.time.LocalTime.now() + "]" + " Passenger " + r.id + " is waiting @ station" + r.start + ", destination " + r.dest + "\n";
+//		MainView.model.addRow(new Object[]{info});
+//		synchronized (this) {
+//			waitForTrain(startStation);
+//		}
+//		// System.out.println("PASSENGER " + id + " WAIT IS DONE");
+//
+//		startStation.removeRobot(this);
+//		// System.out.println(this + " curr train is " + myTrain.getNumber());
+//
+//		System.out.println("myTrain: "+myTrain);
+//		System.out.println("this: " +this);
+//		myTrain.addrobot(r);
+//
+//		System.out.println("Robot Passenger " + this.id + " is boarding in Train #" + myTrain.getNumber());
+//		MainView.model.addRow(new Object[]{"[" + java.time.LocalTime.now() + "]" +" Robot Passenger " + this.id + " is boarding in Train #" + myTrain.getNumber()});
+		
+
+		///////////////////////////////////
+			
 		robotThreads.add(new Thread(r));
 		this.addRobot(r);
 		

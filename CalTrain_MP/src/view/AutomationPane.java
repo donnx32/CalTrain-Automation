@@ -29,7 +29,7 @@ public class AutomationPane extends JPanel {
 		setBounds(10, 11, 1152, 512);
 		
 		try {
-			background = ImageIO.read(new File("src/res/bg0.png"));
+			background = ImageIO.read(new File("src/res/demo1.png"));
 			tunnel = ImageIO.read(new File("src/res/Tunnels.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -68,12 +68,12 @@ public class AutomationPane extends JPanel {
 				g.drawString(wait+" waiting", left, 120);
 				left = left + 285;
 				if (i==3)
-					left = 150;
+					left = left - 285;
 			} else {
 				g.drawString(wait+" waiting", left, 385);
-				left = left + 285;
+				left = left - 285;
 				if (i==7)
-					left = 150;
+					left = left + 285;
 			}
 		}
 //		int wait = CalTrainII.stationList.get(0).getRobotList().size();
@@ -87,7 +87,7 @@ public class AutomationPane extends JPanel {
       		t.paint(g);
       		
       	}
-		g.drawImage(tunnel, 0, 0, 1152 ,512, this);
+		//g.drawImage(tunnel, 0, 0, 1152 ,512, this);
 		
 		g2d.dispose();
 	}
