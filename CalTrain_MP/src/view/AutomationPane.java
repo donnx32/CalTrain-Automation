@@ -15,8 +15,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import model.CalTrainII;
-import objects.Train;
+import controller.CalTrainII;
+import model.Train;
 
 public class AutomationPane extends JPanel {
 
@@ -29,7 +29,7 @@ public class AutomationPane extends JPanel {
 		setBounds(10, 11, 1152, 512);
 		
 		try {
-			background = ImageIO.read(new File("src/res/demo1.png"));
+			background = ImageIO.read(new File("src/res/demo.png"));
 			tunnel = ImageIO.read(new File("src/res/Tunnels.png"));
 		} catch (IOException e) {
 			e.printStackTrace();

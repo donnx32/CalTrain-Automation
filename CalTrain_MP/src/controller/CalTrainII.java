@@ -1,10 +1,10 @@
-package model;
+package controller;
 
 import java.util.ArrayList;
 
-import objects.Robot;
-import objects.Station;
-import objects.Train;
+import model.Robot;
+import model.Station;
+import model.Train;
 import view.MainView;
 
 public class CalTrainII {

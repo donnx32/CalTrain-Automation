@@ -1,4 +1,4 @@
-package objects;
+package model;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -13,7 +13,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import javax.imageio.ImageIO;
 
-import model.CalTrainII;
+import controller.CalTrainII;
 import view.MainView;
 
 public class Train implements Runnable {

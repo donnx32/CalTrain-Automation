@@ -1,6 +1,6 @@
-package objects;
+package model;
 
-import model.CalTrainII;
+import controller.CalTrainII;
 import view.MainView;
 
 public class Robot implements Runnable {
