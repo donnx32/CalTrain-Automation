@@ -8,7 +8,7 @@ To-Do
 -----
 
   - [x] Error handling
-  - [ ] Critical sections.
+  - [ ] Debug Critical sections.
   
 LICENSE
 -----
